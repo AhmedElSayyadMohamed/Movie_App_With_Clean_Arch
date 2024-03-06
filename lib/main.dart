@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_with_clean_arch/movies/domain/entity.dart';
 
 void main() {
-  Movie mov1=const Movie(1, 'backdropPath', 'title', 'overview', 4, 44, [0]);
-  Movie mov2=const Movie(1, 'backdropPath', 'title', 'overview', 4, 44, [0]);
 
-  print(mov2==mov1);
   runApp(const MyApp());
 }
 

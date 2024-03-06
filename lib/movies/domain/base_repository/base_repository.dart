@@ -1,9 +1,8 @@
-import 'package:movie_app_with_clean_arch/movies/domain/entity.dart';
+
+import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 
 abstract class BaseMoviesRepository{
   Future<List<Movie>> getNowPlaying();
   Future<List<Movie>> getPopular();
   Future<List<Movie>> getTopRated();
-
-
 }
