@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app_with_clean_arch/core/constance/api_constance.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MovieWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class MovieWidget extends StatelessWidget {
         child: CachedNetworkImage(
           width: 115,
           fit: BoxFit.cover,
-          imageUrl: image,
+          imageUrl:ApiConstance.imageUrl(image) ,
           placeholder: (context, url) => Shimmer.fromColors(
             baseColor: Colors.grey[850]!,
             highlightColor: Colors.grey[800]!,

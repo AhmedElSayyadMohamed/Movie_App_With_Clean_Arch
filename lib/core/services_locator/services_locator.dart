@@ -13,7 +13,7 @@ class ServicesLocator{
   static init(){
 
     // bloc
-    sl.registerLazySingleton(() =>MoviesBloc(sl()));
+    sl.registerLazySingleton(() =>MoviesBloc(sl(),sl(),sl()));
     //use cases
     sl.registerLazySingleton(() =>GetNowPlayingMovies(sl()));
     sl.registerLazySingleton(() =>GetPopularMovies(sl()));
