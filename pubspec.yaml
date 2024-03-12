@@ -16,11 +16,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
   dio:
+  dartz:
+  flutter_bloc:
+  get_it:
+  shimmer:
+  animate_do:
+  cached_network_image:
+#  google_fonts:
+  carousel_slider:
+  transparent_image: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
 
