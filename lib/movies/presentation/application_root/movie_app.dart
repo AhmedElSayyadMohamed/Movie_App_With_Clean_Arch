@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/screens/home_view/home_view.dart';
-import 'package:movie_app_with_clean_arch/movies/presentation/screens/test_screen.dart';
 
 class MovieApp extends StatelessWidget {
   const MovieApp({super.key});

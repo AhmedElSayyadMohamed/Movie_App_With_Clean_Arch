@@ -3,20 +3,20 @@ import 'package:equatable/equatable.dart';
 class Movie extends Equatable {
   final int id;
   final String backdropPath;
+  final String posterPath;
   final String title;
   final String overview;
   final double voteAverage;
   final String releaseDate;
-  final List<int> genreIds;
 
-  const Movie({
+  const Movie( {
     required this.id,
     required this.backdropPath,
     required this.title,
     required this.overview,
     required this.voteAverage,
     required this.releaseDate,
-    required this.genreIds,
+    required this.posterPath,
   });
 
   @override
@@ -27,6 +27,5 @@ class Movie extends Equatable {
         overview,
         voteAverage,
         releaseDate,
-        genreIds,
       ];
 }

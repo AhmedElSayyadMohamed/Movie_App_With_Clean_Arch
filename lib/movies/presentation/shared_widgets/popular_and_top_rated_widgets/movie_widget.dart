@@ -1,35 +1,91 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app_with_clean_arch/core/constance/api_constance.dart';
-import 'package:shimmer/shimmer.dart';
+import '../../../../core/utiles/share_functions.dart';
+import '../popular_movie_item.dart';
 
 class MovieWidget extends StatelessWidget {
   final String image;
-  const MovieWidget({super.key, required this.image});
+  final String title;
+  final String date;
+  final double voteAverage;
+  const MovieWidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.date, required this.voteAverage,
+  });
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 4),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: CachedNetworkImage(
-          width: 115,
-          fit: BoxFit.cover,
-          imageUrl:ApiConstance.imageUrl(image) ,
-          placeholder: (context, url) => Shimmer.fromColors(
-            baseColor: Colors.grey[850]!,
-            highlightColor: Colors.grey[800]!,
-            child: Container(
-              height: 170.0,
-              width: 120.0,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+      child: SizedBox(
+        height: 210,
+        width: 140,
+        child: Stack(
+alignment: AlignmentDirectional.topEnd,
+          children: [
+            Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PopularMovieItem(
+                  image: image,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(height: 20,),
+                      Text(
+                        title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.008,
+                      ),
+                      Text(
+                        dateFormatting(date),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                  onTap: (){},
+                  child: CircleAvatar(
+                      radius: 13,
+                      backgroundColor: Colors.grey[500]!.withOpacity(0.7),
+                      child: Icon(Icons.more_horiz_rounded,color: Colors.grey[300],)),
+              ),
+            ),
+            PositionedDirectional(
+            start: 6,
+              top:166 ,
+              child: Row(
+                children: [
+                  const Icon(Icons.star,size: 20,color: Colors.yellow,),
+                  Text(voteAverage.toStringAsFixed(1),style: const TextStyle(fontSize: 14),),
+                ],
+              ),
+            )
+          ]
         ),
       ),
     );

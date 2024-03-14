@@ -2,9 +2,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
-import 'package:movie_app_with_clean_arch/movies/presentation/controller/bloc/movies_bloc.dart';
-import 'package:movie_app_with_clean_arch/movies/presentation/controller/states/movie_states.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/popular_and_top_rated_widgets/movie_widget.dart';
+
+import '../../controller/movie_bloc/bloc/movies_bloc.dart';
+import '../../controller/movie_bloc/states/movie_states.dart';
 
 class PopularMoviesComponent extends StatelessWidget {
   const PopularMoviesComponent({super.key});
@@ -14,8 +15,6 @@ class PopularMoviesComponent extends StatelessWidget {
     return BlocBuilder<MoviesBloc, MoviesStates>(
       buildWhen: (previous, current)=> previous.popularMovieState!=current.popularMovieState,
       builder: (BuildContext context, state) {
-        // return Text(state.popularMovies.length.toString());
-
         switch(state.popularMovieState){
           case RequestState.loading: return const SizedBox(
             height: 170,
@@ -28,14 +27,16 @@ class PopularMoviesComponent extends StatelessWidget {
           case RequestState.success: return FadeIn(
             duration: const Duration(milliseconds: 500),
             child: SizedBox(
-              height: 170,
+              height: 240,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 padding: const EdgeInsetsDirectional.only(start: 16),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => MovieWidget(
-                  image: state.popularMovies[index].backdropPath,
+                  image: state.popularMovies[index].posterPath,
+                  title: state.popularMovies[index].title,
+                  date: state.popularMovies[index].releaseDate, voteAverage: state.popularMovies[index].voteAverage,
                 ),
                 itemCount:state.popularMovies.length,
               ),

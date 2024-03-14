@@ -3,7 +3,7 @@ import 'package:movie_app_with_clean_arch/core/network/server_error_exception.da
 import 'package:movie_app_with_clean_arch/movies/data/data_source/movies_remote_data_source.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
-
+import 'package:movie_app_with_clean_arch/movies/domain/entity/movie_details.dart';
 import '../../../core/error/failure/failure.dart';
 
 class MoviesRepository implements BaseMoviesRepository {
@@ -39,5 +39,24 @@ class MoviesRepository implements BaseMoviesRepository {
     } on ServerErrorException catch (failure) {
       return Left(ServerFailure(failure.serverErrorModel.message));
     }
+  }
+
+
+  @override
+  Future<Either<Failure, MovieDetails>> getMovieDetails({required int movieId})async {
+
+    final result = await _baseRemoteMovieDataSource.getMovieDetails(movieId: movieId);
+    try{
+      return Right(result);
+
+    } on ServerErrorException catch(l){
+      return Left(ServerFailure(l.serverErrorModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getRecommendationForAMovie() {
+    // TODO: implement getRecommendationForAMovie
+    throw UnimplementedError();
   }
 }
