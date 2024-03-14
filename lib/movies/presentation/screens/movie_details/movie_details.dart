@@ -13,13 +13,15 @@ class MovieDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MovieDetailsBloc>(
         create: (BuildContext context)=>sl<MovieDetailsBloc>(),
-        child:  const Scaffold(
-          body: Column(
-            children:[
-              MovieTrialWidget(),
-              MovieDetailsComponent(),
-              RecommendationMoviesComponents(),
-            ],
+        child: const Scaffold(
+          body: SafeArea(
+            child: Column(
+              children:[
+                MovieTrialWidget(),
+                MovieDetailsComponent(),
+                RecommendationMoviesComponents(),
+              ],
+            ),
           ),
         ),
 

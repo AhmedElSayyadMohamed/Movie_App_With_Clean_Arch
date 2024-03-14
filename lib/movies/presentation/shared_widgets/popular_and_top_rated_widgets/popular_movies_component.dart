@@ -2,10 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/screens/movie_details/movie_details.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/popular_and_top_rated_widgets/movie_widget.dart';
 
+import '../../../../core/utiles/share_functions.dart';
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/states/movie_states.dart';
+import '../error_message_widget.dart';
+import '../loading_circle_indicator_widget.dart';
 
 class PopularMoviesComponent extends StatelessWidget {
   const PopularMoviesComponent({super.key});
@@ -16,14 +20,7 @@ class PopularMoviesComponent extends StatelessWidget {
       buildWhen: (previous, current)=> previous.popularMovieState!=current.popularMovieState,
       builder: (BuildContext context, state) {
         switch(state.popularMovieState){
-          case RequestState.loading: return const SizedBox(
-            height: 170,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          );
+          case RequestState.loading: return const LoadingCircleIndicator();
           case RequestState.success: return FadeIn(
             duration: const Duration(milliseconds: 500),
             child: SizedBox(
@@ -36,18 +33,15 @@ class PopularMoviesComponent extends StatelessWidget {
                 itemBuilder: (context, index) => MovieWidget(
                   image: state.popularMovies[index].posterPath,
                   title: state.popularMovies[index].title,
-                  date: state.popularMovies[index].releaseDate, voteAverage: state.popularMovies[index].voteAverage,
+                  date: state.popularMovies[index].releaseDate,
+                  voteAverage: state.popularMovies[index].voteAverage,
+                  onTap: () {navigatePushTo(const MovieDetailsScreen(),context);  },
                 ),
                 itemCount:state.popularMovies.length,
               ),
             ),
           );
-          case RequestState.error: return  SizedBox(
-            height: 360,
-            child: Center(
-              child: Text(state.popularErrorMessage),
-            ),
-          );
+          case RequestState.error: return ErrorMessageWidget(message:state.popularErrorMessage);
         }
 
       },

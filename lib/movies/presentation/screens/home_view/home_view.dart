@@ -5,7 +5,6 @@ import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/now
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/popular_and_top_rated_widgets/popular_movies_component.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/popular_and_top_rated_widgets/top_rated_movies_component.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/title_and_see_more_widget.dart';
-
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/events/movies_events.dart';
 

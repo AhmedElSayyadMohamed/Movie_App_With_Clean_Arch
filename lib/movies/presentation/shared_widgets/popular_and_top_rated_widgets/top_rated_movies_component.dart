@@ -6,6 +6,7 @@ import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/pop
 
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/states/movie_states.dart';
+import '../loading_circle_indicator_widget.dart';
 
 class TopRatedMoviesComponent extends StatelessWidget {
   const TopRatedMoviesComponent({super.key});
@@ -16,14 +17,7 @@ class TopRatedMoviesComponent extends StatelessWidget {
       buildWhen: (previous, current)=>previous.topRatedMovieState!=current.topRatedMovieState,
       builder: (BuildContext context, state) {
         switch(state.topRatedMovieState){
-          case RequestState.loading: return const SizedBox(
-            height: 170,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          );
+          case RequestState.loading: return const LoadingCircleIndicator();
           case RequestState.success: return FadeIn(
             duration: const Duration(milliseconds: 500),
             child: SizedBox(
@@ -37,7 +31,7 @@ class TopRatedMoviesComponent extends StatelessWidget {
                   image:state.topRatedMovies[index].posterPath,
                   title: state.topRatedMovies[index].title,
                   date: state.topRatedMovies[index].releaseDate,
-                  voteAverage:  state.topRatedMovies[index].voteAverage,
+                  voteAverage:  state.topRatedMovies[index].voteAverage, onTap: () {  },
                 ),
                 itemCount: state.topRatedMovies.length,
               ),

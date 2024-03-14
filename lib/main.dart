@@ -4,8 +4,9 @@ import 'core/services_locator/services_locator.dart';
 import 'movies/presentation/application_root/movie_app.dart';
 
 void main() {
+
   ServicesLocator.init();
-   GetMovieDetails(sl()).call(movieId: 22);
+   // GetMovieDetails(sl()).call(movieId: 22);
   runApp( const MovieApp());
 }
 

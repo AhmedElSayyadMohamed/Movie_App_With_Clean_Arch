@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/error_message_widget.dart';
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/states/movie_states.dart';
 import 'now_playing_movie_component.dart';
@@ -39,16 +40,10 @@ class NowPlayingMoviesComponent extends StatelessWidget {
                 image: movie.backdropPath,
                 movieName: movie.title,
               ),
-            )
-                .toList(),
+            ).toList(),
           ),
         );
-          case RequestState.error: return  SizedBox(
-            height: 360,
-            child: Center(
-              child: Text(state.playingNowErrorMessage),
-            ),
-          );
+          case RequestState.error: return  ErrorMessageWidget(message: state.playingNowErrorMessage);
          }
       },
     );

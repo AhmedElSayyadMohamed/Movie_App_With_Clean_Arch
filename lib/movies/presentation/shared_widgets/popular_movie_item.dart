@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_with_clean_arch/core/constance/api_constance.dart';
 import 'package:shimmer/shimmer.dart';
 
-class PopularMovieItem extends StatelessWidget{
+class MovieImageItem extends StatelessWidget{
   final String image;
-  const PopularMovieItem({super.key, required this.image});
+  const MovieImageItem({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {

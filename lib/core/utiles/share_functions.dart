@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String dateFormatting(String date){
@@ -6,4 +7,9 @@ String dateFormatting(String date){
   DateFormat dateformat = DateFormat(pattern);
   String formattedDate = dateformat.format(DateTime(list[0],list[1],list[2]));
   return formattedDate;
+}
+
+
+void navigatePushTo(Widget screen,context){
+  Navigator.push(context, MaterialPageRoute(builder: (context)=>screen));
 }
