@@ -32,12 +32,12 @@ class NowPlayingMoviesComponent extends StatelessWidget {
           child: CarouselSlider(
             options: CarouselOptions(
               viewportFraction: 1,
-              height: 360,
+              height: 325,
             ),
             items: state.nowPlayingMovies
                 .map(
                   (movie) => NowPlayingMovieComponent(
-                image: movie.backdropPath,
+                image: movie.backdropPath!,
                 movieName: movie.title,
               ),
             ).toList(),

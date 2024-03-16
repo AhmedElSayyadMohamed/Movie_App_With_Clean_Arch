@@ -11,14 +11,13 @@ class MovieModel extends Movie {
     required super.posterPath,
   });
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) =>
-      MovieModel(
-          id: json['id'],
-          backdropPath: json['backdrop_path'],
-          title: json['title'],
-          overview: json['overview'],
-          voteAverage: json['vote_average'],
-          releaseDate: json['release_date'],
-           posterPath: json['poster_path'],
+  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
+        id: json['id'],
+        backdropPath: json['backdrop_path'],
+        title: json['title'],
+        overview: json['overview'],
+        voteAverage: json['vote_average'],
+        releaseDate: json['release_date'],
+        posterPath: json['poster_path'],
       );
 }

@@ -24,18 +24,18 @@ class PopularMoviesComponent extends StatelessWidget {
           case RequestState.success: return FadeIn(
             duration: const Duration(milliseconds: 500),
             child: SizedBox(
-              height: 240,
+              height: 220,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 padding: const EdgeInsetsDirectional.only(start: 16),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => MovieWidget(
-                  image: state.popularMovies[index].posterPath,
+                  image: state.popularMovies[index].posterPath!,
                   title: state.popularMovies[index].title,
                   date: state.popularMovies[index].releaseDate,
                   voteAverage: state.popularMovies[index].voteAverage,
-                  onTap: () {navigatePushTo(const MovieDetailsScreen(),context);  },
+                  onTap: () {navigatePushTo(MovieDetailsScreen( movie: state.popularMovies[index]),context);  },
                 ),
                 itemCount:state.popularMovies.length,
               ),

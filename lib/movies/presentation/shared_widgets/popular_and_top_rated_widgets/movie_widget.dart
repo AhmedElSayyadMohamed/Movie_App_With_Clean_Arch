@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/movie_rating_widget/movie_rating_wadgit.dart';
 import '../../../../core/utiles/share_functions.dart';
 import '../popular_movie_item.dart';
 
@@ -86,20 +87,8 @@ class MovieWidget extends StatelessWidget {
             ),
             PositionedDirectional(
               start: 6,
-              top: 166,
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.star,
-                    size: 20,
-                    color: Colors.amber,
-                  ),
-                  Text(
-                    voteAverage.toStringAsFixed(1),
-                    style: const TextStyle(fontSize: 13),
-                  ),
-                ],
-              ),
+             bottom: 50,
+              child: MovieRatingStar(voteAverage: voteAverage),
             )
           ]),
         ),
@@ -107,3 +96,4 @@ class MovieWidget extends StatelessWidget {
     );
   }
 }
+

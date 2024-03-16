@@ -4,6 +4,7 @@ import 'package:movie_app_with_clean_arch/movies/data/data_source/movies_remote_
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie_details.dart';
+import 'package:movie_app_with_clean_arch/movies/domain/entity/trailer_movie.dart';
 import '../../../core/error/failure/failure.dart';
 
 class MoviesRepository implements BaseMoviesRepository {
@@ -55,8 +56,27 @@ class MoviesRepository implements BaseMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getRecommendationForAMovie() {
-    // TODO: implement getRecommendationForAMovie
-    throw UnimplementedError();
+  Future<Either<Failure, TrailerMovie>> getTrailerForAMovie({required int movieId})async {
+    final result = await _baseRemoteMovieDataSource.getTrailerMovie(movieId: movieId);
+    try{
+      return Right(result);
+    } on ServerErrorException catch(l){
+      return Left(ServerFailure(l.serverErrorModel.message));
+    }
   }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getRecommendationForAMovie({required int movieId})async {
+    final result = await _baseRemoteMovieDataSource.getRecommendations(movieId: movieId);
+    try{
+      return Right(result);
+    } on ServerErrorException catch(l){
+      return Left(ServerFailure(l.serverErrorModel.message));
+    }
+  }
+
+
+
+
+
 }

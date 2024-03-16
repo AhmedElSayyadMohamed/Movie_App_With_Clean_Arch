@@ -1,7 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app_with_clean_arch/core/constance/api_constance.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../image_with_shader.dart';
 

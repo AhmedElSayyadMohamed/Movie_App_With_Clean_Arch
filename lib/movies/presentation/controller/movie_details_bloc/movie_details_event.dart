@@ -11,3 +11,15 @@ class GetMovieDetailsEvent extends MovieDetailsEvent {
   @override
   List<Object> get props => [id];
 }
+class GetRecommendationsEvent extends MovieDetailsEvent {
+  final int id;
+  GetRecommendationsEvent(this.id);
+  @override
+  List<Object> get props => [id];
+}
+class GetTrailerMovieEvent extends MovieDetailsEvent {
+  final int movieId;
+  GetTrailerMovieEvent(this.movieId);
+  @override
+  List<Object> get props => [movieId];
+}

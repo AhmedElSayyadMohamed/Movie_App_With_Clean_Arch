@@ -8,9 +8,11 @@ class ApiConstance{
 
   static String imageUrl(String path) => '$baseImageUrl$path';
   static String getMovieDetails(int movieId) => '/movie/$movieId?api_key=$apiKey';
+  static String getRecommendations(int movieId) => '/movie/$movieId/recommendations?api_key=$apiKey';
+  static String getTrailerMovie(int movieId) => '/movie/$movieId/videos?api_key=$apiKey';
 }
 class EndPoints{
-  static const String nowPlaying ='/movie/now_playing?api_key=${ApiConstance.apiKey}&page = 2';
+  static const String nowPlaying ='/movie/now_playing?api_key=${ApiConstance.apiKey}';
   static const String popular ='/movie/popular?api_key=${ApiConstance.apiKey}';
   static const String topRated ='/movie/top_rated?api_key=${ApiConstance.apiKey}';
 
