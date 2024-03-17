@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_details_use_cases/get_recommendation_for_a_movie.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_event.dart';
-import '../../../domain/use_cases/get_trailer_for_a_movie.dart';
+import '../../../domain/use_cases/get_trailer_movie/get_trailer_for_a_movie.dart';
 import '../../../domain/use_cases/movie_details_use_cases/get_movie_details.dart';
 import 'movie_details_state.dart';
 
 class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
-  final GetMovieDetails _getMovieDetailsUseCas;
-  final GetTrailerForAMovie _getTrailerForAMovie;
-  final GetRecommendationForAMovie _getRecommendationForAMovie;
+  final GetMovieDetailsUseCase _getMovieDetailsUseCas;
+  final GetTrailerForAMovieUseCase _getTrailerForAMovie;
+  final GetRecommendationsUseCase _getRecommendationForAMovie;
 
   MovieDetailsBloc(
     this._getMovieDetailsUseCas,
@@ -69,10 +69,12 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
                 trailerMovieErrorMessage: l.errorMessage,
               ),
             ), (r) {
+
       emit(state.copyWith(
         trailerMovie: r,
         trailerMovieState: RequestState.success,
-      ));
+      ),
+      );
     });
   }
 }

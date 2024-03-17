@@ -3,7 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/screens/movie_details/movie_details.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/error_message_widget.dart';
+import '../../../../core/utiles/share_functions.dart';
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/states/movie_states.dart';
 import 'now_playing_movie_component.dart';
@@ -33,12 +35,14 @@ class NowPlayingMoviesComponent extends StatelessWidget {
             options: CarouselOptions(
               viewportFraction: 1,
               height: 325,
+              autoPlay: true,
             ),
             items: state.nowPlayingMovies
                 .map(
                   (movie) => NowPlayingMovieComponent(
                 image: movie.backdropPath!,
                 movieName: movie.title,
+                    onTap: (){navigatePushTo(MovieDetailsScreen( movie:movie),context); },
               ),
             ).toList(),
           ),

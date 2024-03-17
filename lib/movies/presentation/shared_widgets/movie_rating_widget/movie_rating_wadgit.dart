@@ -14,9 +14,10 @@ class MovieRatingStar extends StatelessWidget {
       children: [
         const Icon(
           Icons.star,
-          size: 20,
+          size: 18,
           color: Colors.amber,
         ),
+        const SizedBox(width: 5),
         Text(
           voteAverage.toStringAsFixed(1),
           style: const TextStyle(fontSize: 13),

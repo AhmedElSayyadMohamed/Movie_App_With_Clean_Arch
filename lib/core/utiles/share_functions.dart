@@ -13,3 +13,8 @@ String dateFormatting(String date){
 void navigatePushTo(Widget screen,context){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>screen));
 }
+String timeFormatting(int timeInSecond) {
+  final String time =
+  ('${timeInSecond ~/ 60}m ${(timeInSecond % 60)}s').toString();
+  return time;
+}

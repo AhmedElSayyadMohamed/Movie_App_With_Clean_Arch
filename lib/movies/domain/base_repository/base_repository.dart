@@ -12,5 +12,7 @@ abstract class BaseMoviesRepository{
   Future<Either<Failure,List<Movie>>> getTopRated();
   Future<Either<Failure,List<Movie>>> getRecommendationForAMovie({required int movieId});
   Future<Either<Failure,MovieDetails>> getMovieDetails({required int movieId});
+
+
   Future<Either<Failure,TrailerMovie>> getTrailerForAMovie({required int movieId});
 }

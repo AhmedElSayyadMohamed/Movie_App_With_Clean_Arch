@@ -10,7 +10,7 @@ class MovieDetails extends Equatable {
   final String description;
   final String releaseDate;
   final int runtimeInSecond;
-  final String language;
+  // final String language;
   final double voteAverage;
   final int voteCount;
 
@@ -22,10 +22,11 @@ class MovieDetails extends Equatable {
     required this.description,
     required this.releaseDate,
     required this.runtimeInSecond,
-    required this.language,
+    // required this.language,
     required this.voteAverage,
     required this.voteCount,
   });
+
 
   @override
   List<Object> get props => [
@@ -36,7 +37,7 @@ class MovieDetails extends Equatable {
         description,
         releaseDate,
         runtimeInSecond,
-        language,
+        // language,
         voteAverage,
         voteCount,
       ];

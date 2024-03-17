@@ -22,14 +22,12 @@ dependencies:
   shimmer:
   animate_do:
   cached_network_image:
-#  google_fonts:
   carousel_slider:
   transparent_image: ^2.0.1
   intl: ^0.19.0
   flutter_rating_bar: ^4.0.1
-#  video_player: ^2.8.3
-#  url_launcher:
   youtube_player_flutter: ^9.0.0
+  google_fonts: ^4.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

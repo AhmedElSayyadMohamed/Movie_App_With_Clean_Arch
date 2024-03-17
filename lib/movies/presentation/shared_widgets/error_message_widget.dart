@@ -9,7 +9,7 @@ class ErrorMessageWidget extends StatelessWidget {
     return SizedBox(
       height: 360,
       child: Center(
-        child: Text(message),
+        child: Text(message,style: TextStyle(color: Colors.redAccent),),
       ),
     );
   }

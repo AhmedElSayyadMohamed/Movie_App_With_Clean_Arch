@@ -15,8 +15,7 @@ class MovieImageItem extends StatelessWidget{
         topEnd: Radius.circular(8),
       ),
       child: CachedNetworkImage(
-        width: 160,
-        height: 140,
+        width: 140,
         fit: BoxFit.cover,
         imageUrl: ApiConstance.imageUrl(image),
         placeholder: (context, url) => Shimmer.fromColors(
