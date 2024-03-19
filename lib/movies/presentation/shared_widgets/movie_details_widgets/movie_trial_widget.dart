@@ -49,7 +49,6 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
               return YoutubePlayerScaffold(
                 controller: _controller,
                 aspectRatio: 16 / 9,
-
                 builder: (context,player)=> SizedBox(
                   height: 210,
                   width: double.infinity,

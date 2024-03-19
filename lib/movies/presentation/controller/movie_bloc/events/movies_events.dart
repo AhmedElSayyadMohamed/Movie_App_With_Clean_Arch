@@ -21,3 +21,7 @@ class GetTopRatedMoviesEvent extends MoviesEvents {
 
   GetTopRatedMoviesEvent({this.page=0});
 }
+class RefreshHomeScreenEvent extends MoviesEvents {
+
+  RefreshHomeScreenEvent();
+}

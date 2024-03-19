@@ -3,20 +3,28 @@ import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 
 class MoviesStates extends Equatable {
+
   final List<Movie> nowPlayingMovies;
   final RequestState playingNowMovieState;
   final String playingNowErrorMessage;
+  int nowPlayingMoviePageNum;
+
+  ////////////////
+
   final List<Movie> popularMovies;
   final RequestState popularMovieState;
   final String popularErrorMessage;
   int popularMoviePageNum;
-  int topMoviePageNum;
-  int nowPlayingMoviePageNum;
+
+  ///////////////////////
 
   final RequestState paginationState;
   final List<Movie> topRatedMovies;
   final RequestState topRatedMovieState;
   final String topRatedErrorMessage;
+  int topMoviePageNum;
+
+  ////////////////////
 
   MoviesStates({
     this.popularMovies = const [],

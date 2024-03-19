@@ -9,6 +9,8 @@ import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_case
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/events/movies_events.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/states/movie_states.dart';
 
+import '../../../../../core/services_locator/services_locator.dart';
+
 class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
 
   final GetNowPlayingMovies _getNowPlayingMovies;
@@ -18,6 +20,8 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
   List<Movie> topMovies = [];
   List<Movie> nowPlayingMovies = [];
 
+  //////////////////////////////////////////////
+
   MoviesBloc(
     this._getNowPlayingMovies,
     this._getPopularMovies,
@@ -26,83 +30,136 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     on<GetPlayingNowMoviesEvent>(_getPlayingNowMoviesFun);
     on<GetPopularMoviesEvent>(_getPopularMoviesFun);
     on<GetTopRatedMoviesEvent>(_getTopRatedMoviesFun);
+    on<RefreshHomeScreenEvent>(_refresh);
   }
 
-
-
+  /////////////////////////////////////
 
   FutureOr<void> _getPlayingNowMoviesFun(
-      GetPlayingNowMoviesEvent event,
-      Emitter<MoviesStates> emit,
-      ) async {
-
+    GetPlayingNowMoviesEvent event,
+    Emitter<MoviesStates> emit,
+  ) async {
     state.nowPlayingMoviePageNum++;
     emit(state.copyWith(paginationState: RequestState.loading));
     // get data
-    var result = await _getNowPlayingMovies(numOfPage: Parameters(page: state.nowPlayingMoviePageNum));
-    result.fold(
-      (l) => emit(state.copyWith(
-        playingNowMovieState: RequestState.error,
-        playingNowErrorMessage: l.errorMessage,
-      ),
-      ),
-      (movies)
-      {   nowPlayingMovies.addAll(movies);
-              emit(
-                state.copyWith(
-                  nowPlayingMovies: movies,
-                  playingNowMovieState: RequestState.success,
-                ),
-              );
-            });
-  }
+    var result = await _getNowPlayingMovies(
+        numOfPage: Parameters(page: state.nowPlayingMoviePageNum));
+    result.fold((left) {
+      emit(
+        state.copyWith(
+          playingNowMovieState: RequestState.error,
+          playingNowErrorMessage: left.errorMessage,
+        ),
+      );
+    }, (movies) {
 
-  FutureOr<void> _getPopularMoviesFun(
-      GetPopularMoviesEvent event, Emitter<MoviesStates> emit) async {
-    state.popularMoviePageNum++;
-    emit(state.copyWith(paginationState: RequestState.loading));
-    // get data
-    // print(state.popularMoviePageNum);
-    // print(state.popularMovies.length);
-
-    var result = await _getPopularMovies(numOfPage: Parameters(page: state.popularMoviePageNum));
-
-    // handle data
-    result.fold(
-        (l) => emit(state.copyWith(
-              popularMovieState: RequestState.error,
-              popularErrorMessage: l.errorMessage,
-            )), (movies) {
-      popMovies.addAll(movies);
-      emit(state.copyWith(
-        popularMovies: popMovies,
-        popularMovieState: RequestState.success,
-      ));
+      nowPlayingMovies.addAll(movies);
+      emit(
+        state.copyWith(
+          nowPlayingMovies: movies,
+          playingNowMovieState: RequestState.success,
+        ),
+      );
     });
   }
 
-  FutureOr<void> _getTopRatedMoviesFun(
-      GetTopRatedMoviesEvent event, Emitter<MoviesStates> emit) async {
-    state.topMoviePageNum++;
-    print('top ${state.topMoviePageNum}');
-    print(state.topRatedMovies.length);
-    emit(state.copyWith(paginationState: RequestState.loading));
-    var result =
-        await _getTopRatedMovies(numOfPage: Parameters(page:state.topMoviePageNum));
+  ///////////////////////////////////////////////
+  FutureOr<void> _getPopularMoviesFun(
+    GetPopularMoviesEvent event,
+    Emitter<MoviesStates> emit,
+  ) async {
+    state.popularMoviePageNum++;
+    // print('popular${state.popularMoviePageNum}');
+    // print(state.popularMovies.length);
+    // print(state);
+
+    emit(
+      state.copyWith(
+        paginationState: RequestState.loading,
+      ),
+    );
+    // get data
+    var result = await _getPopularMovies(
+      numOfPage: Parameters(
+        page: state.popularMoviePageNum,
+      ),
+    );
+    emit(
+      state.copyWith(
+        paginationState: RequestState.success,
+      ),
+    );
+
+    // handle data
     result.fold(
-      (l) => emit(state.copyWith(
-        topRatedMovieState: RequestState.error,
-        topRatedErrorMessage: l.errorMessage,
-      )),
-      (movies)
-      {topMovies.addAll(movies);
-              emit(
-                state.copyWith(
-                  topRatedMovies: topMovies,
-                  topRatedMovieState: RequestState.success,
-                ),
-              );
-            });
+      (left) {
+        emit(
+          state.copyWith(
+            popularMovieState: RequestState.error,
+            popularErrorMessage: left.errorMessage,
+          ),
+        );
+      },
+      (right) {
+        popMovies.addAll(right);
+        emit(
+          state.copyWith(
+            popularMovies: popMovies,
+            popularMovieState: RequestState.success,
+          ),
+        );
+      },
+    );
   }
 
+  ////////////////////////////////////////////
+  FutureOr<void> _getTopRatedMoviesFun(
+    GetTopRatedMoviesEvent event,
+    Emitter<MoviesStates> emit,
+  ) async {
+    state.topMoviePageNum++;
+    emit(
+      state.copyWith(
+        paginationState: RequestState.loading,
+      ),
+    );
+    var result = await _getTopRatedMovies(
+      numOfPage: Parameters(
+        page: state.topMoviePageNum,
+      ),
+    );
+    result.fold(
+      (left) {
+        emit(
+          state.copyWith(
+            topRatedMovieState: RequestState.error,
+            topRatedErrorMessage: left.errorMessage,
+          ),
+        );
+      },
+      (right) {
+        topMovies.addAll(right);
+        emit(
+          state.copyWith(
+            topRatedMovies: topMovies,
+            topRatedMovieState: RequestState.success,
+          ),
+        );
+      },
+    );
+  }
+
+
+  /////////////////////////////////////////////
+  FutureOr<void> _refresh(
+    RefreshHomeScreenEvent event,
+    Emitter<MoviesStates> emit,
+  ) {
+      add(GetPlayingNowMoviesEvent());
+      add(GetPopularMoviesEvent());
+      add(GetTopRatedMoviesEvent());
+      popMovies.shuffle();
+      topMovies.shuffle();
+      nowPlayingMovies.shuffle();
+  }
 }

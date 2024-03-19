@@ -6,9 +6,10 @@ class LoadingCircleIndicator extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return Container(
+      padding: const EdgeInsetsDirectional.all(8),
       height: 240,
-     child: Center(
+     child: const Center(
        child: CircularProgressIndicator(
          color:Colors.deepPurpleAccent ,
            strokeWidth:3,
