@@ -7,13 +7,13 @@ import 'package:movie_app_with_clean_arch/movies/data/model/movie_model.dart';
 import 'package:movie_app_with_clean_arch/movies/data/model/trialer_movie_model.dart';
 
 abstract class BaseRemoteMovieDataSource {
-  Future<List<MovieModel>> getNowPlayingMovies();
-  Future<List<MovieModel>> getPopularMovies();
-  Future<List<MovieModel>> getTopRatedMovies();
+  Future<List<MovieModel>> getNowPlayingMovies({required int page});
+  Future<List<MovieModel>> getPopularMovies({required int page});
+  Future<List<MovieModel>> getTopRatedMovies({required int page});
   Future<List<MovieModel>> getRecommendations({required int movieId});
   Future<MovieDetailsModel> getMovieDetails({required int movieId});
-  Future<TrailerMovieModel> getTrailerMovie({required int movieId});
-  
+  Future<List<TrailerMovieModel>> getTrailerMovie({required int movieId});
+
 }
 
 class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
@@ -28,9 +28,9 @@ class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
      );
 }
   @override
-  Future<List<MovieModel>> getNowPlayingMovies() async {
+  Future<List<MovieModel>> getNowPlayingMovies({required int page}) async {
 
-    var response = await _dio.get(EndPoints.nowPlaying);
+    var response = await _dio.get(EndPoints.getNowPlaying(page));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         response.data['results'].map(
@@ -45,8 +45,8 @@ class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getPopularMovies() async {
-    var response = await _dio.get(EndPoints.popular);
+  Future<List<MovieModel>> getPopularMovies({required int page}) async {
+    var response = await _dio.get(EndPoints.getPopular(page));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         response.data['results'].map(
@@ -61,8 +61,8 @@ class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getTopRatedMovies() async {
-    var response = await _dio.get(EndPoints.topRated);
+  Future<List<MovieModel>> getTopRatedMovies({required int page}) async {
+    var response = await _dio.get(EndPoints.getTopRated(page));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         response.data['results'].map(
@@ -100,10 +100,13 @@ class RemoteMovieDataSource extends BaseRemoteMovieDataSource {
   }
 
   @override
-  Future<TrailerMovieModel> getTrailerMovie({required int movieId}) async{
+  Future<List<TrailerMovieModel>> getTrailerMovie({required int movieId}) async{
     var response = await _dio.get(ApiConstance.getTrailerMovie(movieId));
     if (response.statusCode == 200) {
-      return TrailerMovieModel.fromJson(response.data['results'][0]);
+      // return List<TrailerMovieModel>.from(response.data['results'].where((e)=>e['name'].toLowerCase().contains('trailer')));
+      return List<TrailerMovieModel>.from((response.data['results'] as List<dynamic>)
+          .where((e) => (e as Map<String, dynamic>)['name'].toLowerCase().contains('trailer'))
+          .map((e) => TrailerMovieModel.fromJson(e)));
     } else {
       throw ServerErrorException(
         serverErrorModel: ServerErrorModel.fromJson(response.data),

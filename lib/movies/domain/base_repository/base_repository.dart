@@ -7,12 +7,10 @@ import 'package:movie_app_with_clean_arch/movies/domain/entity/trailer_movie.dar
 
 abstract class BaseMoviesRepository{
 
-  Future<Either<Failure,List<Movie>>> getNowPlaying();
-  Future<Either<Failure,List<Movie>>> getPopular();
-  Future<Either<Failure,List<Movie>>> getTopRated();
+  Future<Either<Failure,List<Movie>>> getNowPlaying({required int? page});
+  Future<Either<Failure,List<Movie>>> getPopular({required int? page});
+  Future<Either<Failure,List<Movie>>> getTopRated({required int? page});
   Future<Either<Failure,List<Movie>>> getRecommendationForAMovie({required int movieId});
   Future<Either<Failure,MovieDetails>> getMovieDetails({required int movieId});
-
-
-  Future<Either<Failure,TrailerMovie>> getTrailerForAMovie({required int movieId});
+  Future<Either<Failure,List<TrailerMovie>>> getTrailerForAMovie({required int movieId});
 }

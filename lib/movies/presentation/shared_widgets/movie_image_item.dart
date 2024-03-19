@@ -5,14 +5,17 @@ import 'package:shimmer/shimmer.dart';
 
 class MovieImageItem extends StatelessWidget{
   final String image;
-  const MovieImageItem({super.key, required this.image});
+  final double bottomBorder ;
+  const MovieImageItem({super.key, required this.image, this.bottomBorder = 0});
 
   @override
   Widget build(BuildContext context) {
     return  ClipRRect(
-      borderRadius: const BorderRadiusDirectional.only(
-          topStart: Radius.circular(8),
-        topEnd: Radius.circular(8),
+      borderRadius: BorderRadiusDirectional.only(
+          topStart: const Radius.circular(8),
+        topEnd: const Radius.circular(8),
+        bottomEnd:Radius.circular(bottomBorder),
+        bottomStart:  Radius.circular(bottomBorder),
       ),
       child: CachedNetworkImage(
         width: 140,

@@ -14,16 +14,16 @@ class GetMovieDetailsUseCase
 
   @override
   Future<Either<Failure, MovieDetails>> call({required Parameters parameter}) {
-    return _baseMoviesRepository.getMovieDetails(movieId: parameter.movieId);
+    return _baseMoviesRepository.getMovieDetails(movieId: parameter.movieId!);
   }
 
 }
 
 class Parameters extends Equatable {
-  final int movieId;
-
-  const Parameters(this.movieId);
+  final int? movieId;
+  final int page;
+  const Parameters({this.movieId, this.page = 1});
 
   @override
-  List<Object> get props => [movieId];
+  List<Object?> get props => [movieId,page];
 }

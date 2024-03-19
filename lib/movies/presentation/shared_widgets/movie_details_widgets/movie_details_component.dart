@@ -7,17 +7,19 @@ import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_d
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_state.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/error_message_widget.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/loading_circle_indicator_widget.dart';
-import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/movie_rating_widget/movie_rating_wadgit.dart';
-import '../../../../core/utiles/share_functions.dart';
+import '../movie_details_widget/movie_details_widget.dart';
 
 class MovieDetailsComponent extends StatelessWidget {
   const MovieDetailsComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    print('MovieDetailsComponent build ');
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       buildWhen: (prev,current)=> prev.movieDetailState != current.movieDetailState,
       builder: (BuildContext context, state) {
+        print('MovieDetailsComponent MovieDetailsBloc ');
+
         switch (state.movieDetailState) {
           case RequestState.loading:
             return const LoadingCircleIndicator();
@@ -25,44 +27,11 @@ class MovieDetailsComponent extends StatelessWidget {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    state.movieDetailsModel!.title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsetsDirectional.all(3),
-                          color: Colors.grey[700],
-                          child: Text(
-                              "${dateFormatting(state.movieDetailsModel!.releaseDate).split(',').toList()[1]} "),
-                        ),
-                        const SizedBox(width: 20),
-                        MovieRatingStar(
-                            voteAverage: state.movieDetailsModel!.voteAverage,
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                          timeFormatting(
-                            state.movieDetailsModel!.runtimeInSecond,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Text(
-                    state.movieDetailsModel!.description,
-                    style: GoogleFonts.abel(
-                      fontSize: 18,
-                    ),
+                  MovieDetailsWidget(
+                    title:state.movieDetailsModel!.title,
+                    description:  state.movieDetailsModel!.description,
+                    date:state.movieDetailsModel!.releaseDate,
+                    voteAverage: state.movieDetailsModel!.voteAverage,
                   ),
                   const SizedBox(
                       height: 10,
@@ -106,11 +75,10 @@ class MovieDetailsComponent extends StatelessWidget {
   }
 
   String formattingGenres(List<Genres> generes) {
-    String _generes = '';
-    generes.forEach((element) {
-      print(element.name);
-      _generes += element.name;
-    });
-    return _generes;
+    String generes0 = '';
+    for (var element in generes) {
+      generes0 += element.name;
+    }
+    return generes0;
   }
 }

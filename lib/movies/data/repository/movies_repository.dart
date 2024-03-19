@@ -13,8 +13,8 @@ class MoviesRepository implements BaseMoviesRepository {
   MoviesRepository(this._baseRemoteMovieDataSource);
 
   @override
-  Future<Either<Failure, List<Movie>>> getNowPlaying() async {
-    var result = await _baseRemoteMovieDataSource.getNowPlayingMovies();
+  Future<Either<Failure, List<Movie>>> getNowPlaying({required int? page}) async {
+    var result = await _baseRemoteMovieDataSource.getNowPlayingMovies(page: page!);
     try {
       return Right(result);
     } on ServerErrorException catch (failure) {
@@ -23,8 +23,8 @@ class MoviesRepository implements BaseMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getPopular() async{
-    var result = await _baseRemoteMovieDataSource.getPopularMovies();
+  Future<Either<Failure, List<Movie>>> getPopular({required int? page}) async{
+    var result = await _baseRemoteMovieDataSource.getPopularMovies(page: page!);
     try {
       return Right(result);
     } on ServerErrorException catch (failure) {
@@ -33,8 +33,8 @@ class MoviesRepository implements BaseMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getTopRated()async {
-    var result = await _baseRemoteMovieDataSource.getTopRatedMovies();
+  Future<Either<Failure, List<Movie>>> getTopRated({required int? page})async {
+    var result = await _baseRemoteMovieDataSource.getTopRatedMovies(page: page!);
     try {
       return Right(result);
     } on ServerErrorException catch (failure) {
@@ -56,7 +56,7 @@ class MoviesRepository implements BaseMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, TrailerMovie>> getTrailerForAMovie({required int movieId})async {
+  Future<Either<Failure, List<TrailerMovie>>> getTrailerForAMovie({required int movieId})async {
     final result = await _baseRemoteMovieDataSource.getTrailerMovie(movieId: movieId);
     try{
       return Right(result);

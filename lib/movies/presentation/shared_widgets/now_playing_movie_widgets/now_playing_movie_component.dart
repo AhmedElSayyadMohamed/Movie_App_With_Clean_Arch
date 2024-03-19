@@ -20,7 +20,9 @@ class NowPlayingMovieComponent extends StatelessWidget {
       onTap: onTap ,
       child: Stack(
         children: [
-          ImageWithShader(image: image),
+          ImageWithShader(
+              image: image,
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Column(

@@ -11,7 +11,7 @@ class MovieDetailsStates extends Equatable {
   final List<Movie> recommendationsMovies;
   final RequestState recommendationsMoviesState;
   final String recommendationsMoviesErrorMessage;
-  final TrailerMovie trailerMovie;
+  final List<TrailerMovie> trailersMovie;
   final RequestState trailerMovieState;
   final String trailerMovieErrorMessage;
 
@@ -19,7 +19,7 @@ class MovieDetailsStates extends Equatable {
     this.recommendationsMovies =const[],
     this.recommendationsMoviesState = RequestState.loading,
     this.recommendationsMoviesErrorMessage = '',
-    this.trailerMovie = const TrailerMovie(id: '', key: ''),
+    this.trailersMovie = const[],
     this.trailerMovieState = RequestState.loading,
     this.trailerMovieErrorMessage = '',
     this.movieDetailsModel,
@@ -34,7 +34,7 @@ class MovieDetailsStates extends Equatable {
     List<Movie>? recommendationsMovies,
     RequestState? recommendationsMoviesState,
     String? recommendationsMoviesErrorMessage,
-    TrailerMovie? trailerMovie,
+    List<TrailerMovie>? trailersMovie,
     RequestState? trailerMovieState,
     String? trailerMovieErrorMessage,
   }) =>
@@ -48,7 +48,7 @@ class MovieDetailsStates extends Equatable {
             this.recommendationsMoviesState,
         recommendationsMoviesErrorMessage: recommendationsMoviesErrorMessage ??
             this.recommendationsMoviesErrorMessage,
-        trailerMovie: trailerMovie ?? this.trailerMovie,
+        trailersMovie: trailersMovie ?? this.trailersMovie,
         trailerMovieState: trailerMovieState ?? this.trailerMovieState,
         trailerMovieErrorMessage: trailerMovieErrorMessage ??
             this.trailerMovieErrorMessage,
@@ -63,7 +63,7 @@ class MovieDetailsStates extends Equatable {
         recommendationsMovies,
         recommendationsMoviesState,
         recommendationsMoviesErrorMessage,
-        trailerMovie,
+        trailersMovie,
         trailerMovieState,
         trailerMovieErrorMessage,
       ];

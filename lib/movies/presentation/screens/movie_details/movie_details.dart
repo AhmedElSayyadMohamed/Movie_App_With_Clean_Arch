@@ -15,7 +15,7 @@ class MovieDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MovieDetailsBloc>(
       create: (BuildContext context) => sl<MovieDetailsBloc>()
-        ..add(GetTrailerMovieEvent(movie.id))
+        ..add(GetTrailersMovieEvent(movie.id))
         ..add(GetMovieDetailsEvent(movie.id))
         ..add(GetRecommendationsEvent(movie.id)),
       child: Scaffold(

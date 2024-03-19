@@ -5,6 +5,6 @@ import 'movies/presentation/application_root/movie_app.dart';
 void main() {
 
   ServicesLocator.init();
-  runApp( const MovieApp());
+  runApp(const MovieApp());
 }
 

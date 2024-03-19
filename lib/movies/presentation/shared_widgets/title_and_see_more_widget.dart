@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class TitleAndSeeMoreWidget extends StatelessWidget {
   final String title ;
-  const TitleAndSeeMoreWidget({super.key, required this.title});
+   final Function()? onTap;
+  const TitleAndSeeMoreWidget({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class TitleAndSeeMoreWidget extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: onTap,
             child: const Row(
               children: [
                 Text(

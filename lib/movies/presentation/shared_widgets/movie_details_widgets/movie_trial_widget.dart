@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_state.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/loading_circle_indicator_widget.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../../../../core/constance/api_constance.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../../../core/constance/request_enum.dart';
 import '../../../domain/entity/movie.dart';
 import '../error_message_widget.dart';
@@ -17,15 +16,12 @@ class MovieTrialWidget extends StatefulWidget {
 }
 
 class _MovieTrialWidgetState extends State<MovieTrialWidget> {
-  late YoutubePlayerController controller;
-
+  late YoutubePlayerController _controller;
   void getMovieTrial({required String movieKey}) {
-    controller = YoutubePlayerController(
-      initialVideoId: movieKey,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-      ),
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: movieKey,
+      autoPlay: false,
+      params: const YoutubePlayerParams(showFullscreenButton: true),
     );
   }
 
@@ -34,26 +30,32 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
     super.initState();
     getMovieTrial(movieKey: 'A002-b7IH2M');
   }
+
   @override
   Widget build(BuildContext context) {
+    print('MovieTrialWidget build');
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       builder: (BuildContext context, state) {
+        print('MovieTrialWidget BlocBuilder');
+
         switch (state.trailerMovieState) {
           case RequestState.loading:
             return const LoadingCircleIndicator();
           case RequestState.success:
             {
-              getMovieTrial(movieKey: state.trailerMovie.key);
+              if (state.trailersMovie.isNotEmpty) {
+                getMovieTrial(movieKey: state.trailersMovie[0].key);
+              }
+              return YoutubePlayerScaffold(
+                controller: _controller,
+                aspectRatio: 16 / 9,
 
-              return  YoutubePlayer(
-                controller: controller,
-                thumbnail: Image.network(
-                  ApiConstance.imageUrl(widget.movie.backdropPath!),
-                  fit: BoxFit.cover,
-                ),
-                progressColors: const ProgressBarColors(
-                  playedColor: Colors.deepPurpleAccent,
-                  handleColor: Colors.deepPurpleAccent,
+                builder: (context,player)=> SizedBox(
+                  height: 210,
+                  width: double.infinity,
+                  child: YoutubePlayer(
+                    controller: _controller,
+                  ),
                 ),
               );
             }
@@ -63,10 +65,10 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
       },
     );
   }
+
   @override
   void dispose() {
-    controller.dispose();
+    _controller.close();
     super.dispose();
   }
-
 }

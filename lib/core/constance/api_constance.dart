@@ -12,8 +12,7 @@ class ApiConstance{
   static String getTrailerMovie(int movieId) => '/movie/$movieId/videos?api_key=$apiKey';
 }
 class EndPoints{
-  static const String nowPlaying ='/movie/now_playing?api_key=${ApiConstance.apiKey}';
-  static const String popular ='/movie/popular?api_key=${ApiConstance.apiKey}';
-  static const String topRated ='/movie/top_rated?api_key=${ApiConstance.apiKey}';
-
+  static String getNowPlaying(int page) =>'/movie/now_playing?api_key=${ApiConstance.apiKey}&page=$page';
+  static String getPopular(int page) =>'/movie/popular?api_key=${ApiConstance.apiKey}&page=$page';
+  static String getTopRated(int page) =>'/movie/top_rated?api_key=${ApiConstance.apiKey}&page=$page';
 }

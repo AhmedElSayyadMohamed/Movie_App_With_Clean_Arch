@@ -17,9 +17,9 @@ class GetRecommendationsEvent extends MovieDetailsEvent {
   @override
   List<Object> get props => [id];
 }
-class GetTrailerMovieEvent extends MovieDetailsEvent {
+class GetTrailersMovieEvent extends MovieDetailsEvent {
   final int movieId;
-  GetTrailerMovieEvent(this.movieId);
+  GetTrailersMovieEvent(this.movieId);
   @override
   List<Object> get props => [movieId];
 }

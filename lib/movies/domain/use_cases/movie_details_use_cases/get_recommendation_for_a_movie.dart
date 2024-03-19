@@ -13,7 +13,7 @@ class GetRecommendationsUseCase extends BaseMovieDetailsUseCases<List<Movie>,Par
 
   @override
   Future<Either<Failure, List<Movie>>> call({required Parameters parameter})async {
-    return await _baseMoviesRepository.getRecommendationForAMovie(movieId:parameter.movieId);
+    return await _baseMoviesRepository.getRecommendationForAMovie(movieId:parameter.movieId!);
   }
 
 

@@ -19,11 +19,11 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
   ) : super(const MovieDetailsStates()) {
     on<GetMovieDetailsEvent>(_getMovieDetailsFun);
     on<GetRecommendationsEvent>(_getRecommendationsFun);
-    on<GetTrailerMovieEvent>(_getTrailerMovie);
+    on<GetTrailersMovieEvent>(_getTrailersMovie);
   }
   FutureOr<void> _getMovieDetailsFun(
       GetMovieDetailsEvent event, Emitter<MovieDetailsStates> emit) async {
-    var result = await _getMovieDetailsUseCas(parameter: Parameters(event.id));
+    var result = await _getMovieDetailsUseCas(parameter: Parameters(movieId:event.id));
     result.fold(
       (l) => emit(
         state.copyWith(
@@ -43,7 +43,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
   FutureOr<void> _getRecommendationsFun(
       GetRecommendationsEvent event, Emitter<MovieDetailsStates> emit) async {
     var result =
-        await _getRecommendationForAMovie(parameter: Parameters(event.id));
+        await _getRecommendationForAMovie(parameter: Parameters(movieId:event.id));
     result.fold(
         (l) => emit(
               state.copyWith(
@@ -58,10 +58,10 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
     });
   }
 
-  FutureOr<void> _getTrailerMovie(
-      GetTrailerMovieEvent event, Emitter<MovieDetailsStates> emit) async {
+  FutureOr<void> _getTrailersMovie(
+      GetTrailersMovieEvent event, Emitter<MovieDetailsStates> emit) async {
     var result =
-        await _getTrailerForAMovie(parameter: Parameters(event.movieId));
+        await _getTrailerForAMovie(parameter: Parameters(movieId:event.movieId));
     result.fold(
         (l) => emit(
               state.copyWith(
@@ -69,9 +69,10 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
                 trailerMovieErrorMessage: l.errorMessage,
               ),
             ), (r) {
-
+print(r.length);
+print(r);
       emit(state.copyWith(
-        trailerMovie: r,
+        trailersMovie: r,
         trailerMovieState: RequestState.success,
       ),
       );

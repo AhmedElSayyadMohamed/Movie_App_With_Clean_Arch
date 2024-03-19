@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/screens/movie_details/movie_details.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/error_message_widget.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/loading_circle_indicator_widget.dart';
 import '../../../../core/utiles/share_functions.dart';
 import '../../controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../controller/movie_bloc/states/movie_states.dart';
@@ -15,18 +16,15 @@ class NowPlayingMoviesComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('NowPlayingMoviesComponent build');
     return BlocBuilder<MoviesBloc,MoviesStates>(
-      buildWhen: (previous, current)=>previous.playingNowMovieState!=current.playingNowMovieState,
+      buildWhen: (previous, current)=>
+      previous.playingNowMovieState != current.playingNowMovieState,
       builder: (BuildContext context, MoviesStates state) {
+        print('NowPlayingMoviesComponent BlocBuilder');
+
         switch(state.playingNowMovieState){
-          case RequestState.loading: return const SizedBox(
-            height: 360,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          );
+          case RequestState.loading: return const LoadingCircleIndicator();
           case RequestState.success: return FadeIn(
           duration: const Duration(
             milliseconds: 400,
@@ -35,14 +33,16 @@ class NowPlayingMoviesComponent extends StatelessWidget {
             options: CarouselOptions(
               viewportFraction: 1,
               height: 325,
-              autoPlay: true,
+              autoPlay: false,
             ),
             items: state.nowPlayingMovies
                 .map(
                   (movie) => NowPlayingMovieComponent(
-                image: movie.backdropPath!,
+                image: movie.posterPath!,
                 movieName: movie.title,
-                    onTap: (){navigatePushTo(MovieDetailsScreen( movie:movie),context); },
+                    onTap: (){
+                  navigatePushTo(MovieDetailsScreen( movie:movie),context);
+                  },
               ),
             ).toList(),
           ),

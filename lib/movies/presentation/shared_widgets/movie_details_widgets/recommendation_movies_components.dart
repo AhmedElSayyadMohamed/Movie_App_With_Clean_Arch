@@ -54,7 +54,13 @@ class RecommendationMoviesComponents extends StatelessWidget {
                     itemBuilder: (context, index) {
                       
                       return InkWell(
-                        onTap: (){navigatePushTo(MovieDetailsScreen(movie: state.recommendationsMovies[index]), context);},
+                        onTap: (){
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context)=>MovieDetailsScreen(movie: state.recommendationsMovies[index]),
+                              ),
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),

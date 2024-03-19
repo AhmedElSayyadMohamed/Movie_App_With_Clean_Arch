@@ -4,11 +4,13 @@ import '../../../../core/error/failure/failure.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 
-class GetTopRatedMovies extends BaseUseCases<List<Movie>>{
+import '../movie_details_use_cases/get_movie_details.dart';
+
+class GetTopRatedMovies extends BaseUseCases<List<Movie>,Parameters>{
   final BaseMoviesRepository _baseMoviesRepository;
   GetTopRatedMovies(this._baseMoviesRepository);
 
   @override
-  Future<Either<Failure, List<Movie>>> call()=> _baseMoviesRepository.getTopRated();
+  Future<Either<Failure, List<Movie>>> call({required Parameters numOfPage})=> _baseMoviesRepository.getTopRated(page: numOfPage.page);
 
 }

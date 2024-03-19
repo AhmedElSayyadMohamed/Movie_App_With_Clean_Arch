@@ -23,11 +23,13 @@ dependencies:
   animate_do:
   cached_network_image:
   carousel_slider:
-  transparent_image: ^2.0.1
+#  transparent_image: ^2.0.1
   intl: ^0.19.0
-  flutter_rating_bar: ^4.0.1
-  youtube_player_flutter: ^9.0.0
+#  flutter_rating_bar: ^4.0.1
+#  youtube_player_flutter: ^9.0.0
   google_fonts: ^4.0.5
+  youtube_player_iframe: ^4.0.4
+  flutter_native_splash: ^2.3.7
 dev_dependencies:
   flutter_test:
     sdk: flutter
