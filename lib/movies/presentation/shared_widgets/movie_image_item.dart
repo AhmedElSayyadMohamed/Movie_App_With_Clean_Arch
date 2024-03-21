@@ -6,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 class MovieImageItem extends StatelessWidget{
   final String image;
   final double bottomBorder ;
-  const MovieImageItem({super.key, required this.image, this.bottomBorder = 0});
+  const MovieImageItem({super.key, required this.image, this.bottomBorder = 0,});
 
   @override
   Widget build(BuildContext context) {

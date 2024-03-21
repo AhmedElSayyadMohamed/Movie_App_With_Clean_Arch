@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_details_use_cases/get_recommendation_for_a_movie.dart';
@@ -69,8 +70,12 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
                 trailerMovieErrorMessage: l.errorMessage,
               ),
             ), (r) {
-print(r.length);
-print(r);
+if (kDebugMode) {
+  print(r.length);
+}
+if (kDebugMode) {
+  print(r);
+}
       emit(state.copyWith(
         trailersMovie: r,
         trailerMovieState: RequestState.success,

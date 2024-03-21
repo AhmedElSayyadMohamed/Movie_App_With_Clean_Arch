@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
@@ -16,39 +17,50 @@ class NowPlayingMoviesComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('NowPlayingMoviesComponent build');
-    return BlocBuilder<MoviesBloc,MoviesStates>(
+    if (kDebugMode) {
+      print('NowPlayingMoviesComponent build');
+    }
+    return BlocBuilder<MoviesBloc, MoviesStates>(
       buildWhen: (previous, current)=>
-      previous.playingNowMovieState != current.playingNowMovieState,
+      (previous.playingNowMovieState != current.playingNowMovieState)||
+          (previous.playingNowPaginationState != current.playingNowPaginationState),
       builder: (BuildContext context, MoviesStates state) {
-        print('NowPlayingMoviesComponent BlocBuilder');
-
-        switch(state.playingNowMovieState){
-          case RequestState.loading: return const LoadingCircleIndicator();
-          case RequestState.success: return FadeIn(
-          duration: const Duration(
-            milliseconds: 400,
-          ),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1,
-              height: 325,
-              autoPlay: false,
-            ),
-            items: state.nowPlayingMovies
-                .map(
-                  (movie) => NowPlayingMovieComponent(
-                image: movie.posterPath!,
-                movieName: movie.title,
-                    onTap: (){
-                  navigatePushTo(MovieDetailsScreen( movie:movie),context);
-                  },
-              ),
-            ).toList(),
-          ),
-        );
-          case RequestState.error: return  ErrorMessageWidget(message: state.playingNowErrorMessage);
-         }
+        if (kDebugMode) {
+          print('NowPlayingMoviesComponent BlocBuilder');
+        }
+          switch (state.playingNowMovieState) {
+            case RequestState.loading:
+              return const LoadingCircleIndicator(height: 325,);
+            case RequestState.success:
+              return FadeIn(
+                duration: const Duration(
+                  milliseconds: 400,
+                ),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    height: 325,
+                    autoPlay: false,
+                  ),
+                  items: state.nowPlayingMovies
+                      .map(
+                        (movie) => NowPlayingMovieComponent(
+                          image: movie.backdropPath!,
+                          movieName: movie.title,
+                          onTap: () {
+                            navigatePushTo(
+                                MovieDetailsScreen(movie: movie), context);
+                          },
+                        ),
+                      )
+                      .toList(),
+                ),
+              );
+            case RequestState.error:
+              return ErrorMessageWidget(
+                message: state.playingNowErrorMessage,
+              );
+          }
       },
     );
   }

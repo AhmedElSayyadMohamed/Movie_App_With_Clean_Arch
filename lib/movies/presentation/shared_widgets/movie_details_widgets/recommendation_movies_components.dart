@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app_with_clean_arch/core/utiles/share_functions.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_state.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/screens/movie_details/movie_details.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/loading_circle_indicator_widget.dart';
 import '../../../../core/constance/request_enum.dart';
 import '../error_message_widget.dart';
 import '../movie_image_item.dart';
@@ -19,14 +19,7 @@ class RecommendationMoviesComponents extends StatelessWidget {
       builder: (BuildContext context, MovieDetailsStates state) {
         switch (state.recommendationsMoviesState) {
           case RequestState.loading:
-            return const SizedBox(
-              height: 360,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              ),
-            );
+            return const LoadingCircleIndicator();
           case RequestState.success:
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,

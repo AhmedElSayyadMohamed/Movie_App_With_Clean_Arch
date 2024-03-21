@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
@@ -16,7 +17,8 @@ class TopRatedMoviesComponent extends StatefulWidget {
   const TopRatedMoviesComponent({super.key});
 
   @override
-  State<TopRatedMoviesComponent> createState() => _TopRatedMoviesComponentState();
+  State<TopRatedMoviesComponent> createState() =>
+      _TopRatedMoviesComponentState();
 }
 
 class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
@@ -32,46 +34,64 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       sl<MoviesBloc>().add(GetTopRatedMoviesEvent());
-      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print('PopularMoviesComponent build');
+    if (kDebugMode) {
+      print('PopularMoviesComponent build');
+    }
 
     return BlocBuilder<MoviesBloc, MoviesStates>(
-      buildWhen: (previous, current)=>previous.topRatedMovieState!=current.topRatedMovieState,
+      buildWhen: (previous, current) =>
+      (previous.topRatedMovieState != current.topRatedMovieState)||
+          ( previous.topPaginationState != current.topPaginationState),
       builder: (BuildContext context, state) {
-        print('PopularMoviesComponent BlocBuilder');
-
-        switch(state.topRatedMovieState){
-          case RequestState.loading: return const LoadingCircleIndicator();
-          case RequestState.success: return FadeIn(
-            duration: const Duration(milliseconds: 500),
-            child: SizedBox(
-              height: 250,
-              child: ListView.builder(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsetsDirectional.only(start: 16),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => MovieWidget(
-                  image:state.topRatedMovies[index].posterPath!,
-                  title: state.topRatedMovies[index].title,
-                  date: state.topRatedMovies[index].releaseDate,
-                  voteAverage:  state.topRatedMovies[index].voteAverage,
-                  onTap: () {navigatePushTo(
-                      MovieDetailsScreen( movie: state.topRatedMovies[index]),context); },
-                ),
-                itemCount: state.topRatedMovies.length,
-              ),
-            ),
-          );
-          case RequestState.error: return ErrorMessageWidget(message:state.topRatedErrorMessage,);
+        if (kDebugMode) {
+          print('PopularMoviesComponent BlocBuilder');
         }
 
+          switch (state.topRatedMovieState) {
+            case RequestState.loading:
+              return const LoadingCircleIndicator();
+            case RequestState.success:
+              return FadeIn(
+                duration: const Duration(milliseconds: 500),
+                child: SizedBox(
+                  height: 250,
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: const EdgeInsetsDirectional.only(start: 16),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      if (index < state.topRatedMovies.length) {
+                        return MovieWidget(
+                          movie: state.topRatedMovies[index],
+                          onTap: () {
+                            navigatePushTo(
+                              MovieDetailsScreen(
+                                movie: state.topRatedMovies[index],
+                              ),
+                              context,
+                            );
+                          }, index: index,
+                        );
+                      } else {
+                        return const LoadingCircleIndicator();
+                      }
+                    },
+                    itemCount: state.topRatedMovies.length + 1,
+                  ),
+                ),
+              );
+            case RequestState.error:
+              return ErrorMessageWidget(
+                message: state.topRatedErrorMessage,
+              );
+          }
       },
     );
   }
@@ -81,5 +101,4 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
     _scrollController.removeListener(_onScroll);
     super.dispose();
   }
-
 }

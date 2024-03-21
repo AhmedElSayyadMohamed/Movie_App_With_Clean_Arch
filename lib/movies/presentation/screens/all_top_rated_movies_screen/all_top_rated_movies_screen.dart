@@ -8,15 +8,14 @@ import '../../controller/movie_bloc/events/movies_events.dart';
 import '../../shared_widgets/all_movies_card.dart';
 
 
-
-class AllPopularMoviesScreen extends StatefulWidget {
-  const AllPopularMoviesScreen({super.key});
+class AllTopRatedMoviesScreen extends StatefulWidget {
+  const AllTopRatedMoviesScreen({super.key});
 
   @override
-  State<AllPopularMoviesScreen> createState() => _AllPopularMoviesScreenState();
+  State<AllTopRatedMoviesScreen> createState() => _AllTopRatedMoviesScreenState();
 }
 
-class _AllPopularMoviesScreenState extends State<AllPopularMoviesScreen> {
+class _AllTopRatedMoviesScreenState extends State<AllTopRatedMoviesScreen> {
   final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -27,7 +26,7 @@ class _AllPopularMoviesScreenState extends State<AllPopularMoviesScreen> {
   Future<void> _onScroll() async {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      sl<MoviesBloc>().add(GetPopularMoviesEvent());
+      sl<MoviesBloc>().add(GetTopRatedMoviesEvent());
     }
   }
 
@@ -35,35 +34,35 @@ class _AllPopularMoviesScreenState extends State<AllPopularMoviesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Popular Movies'),
+        title: const Text('TopRated Movies'),
         leading: const BackButton(),
       ),
       body: BlocProvider.value(
         value: sl<MoviesBloc>(),
         child: BlocBuilder<MoviesBloc, MoviesStates>(
             builder: (BuildContext context, state) {
-          return Padding(
-            padding: const EdgeInsetsDirectional.only(
-              top: 20,
-              start: 10,
-              end: 10,
-            ),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
-              itemCount: state.popularMovies.length + 1,
-              itemBuilder: (context, index) {
-                if (index < state.popularMovies.length) {
-                  return MovieCard(movie: state.popularMovies[index],);
-                } else {
-                  return const LoadingCircleIndicator(
-                    height: 50,
-                  );
-                }
-              },
-            ),
-          );
-        }),
+              return Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  top: 20,
+                  start: 10,
+                  end: 10,
+                ),
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  itemCount: state.topRatedMovies.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index < state.topRatedMovies.length) {
+                      return MovieCard(movie: state.topRatedMovies[index],);
+                    } else {
+                      return const LoadingCircleIndicator(
+                        height: 50,
+                      );
+                    }
+                  },
+                ),
+              );
+            }),
       ),
     );
   }

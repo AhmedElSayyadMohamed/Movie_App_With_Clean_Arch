@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,11 +15,15 @@ class MovieDetailsComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('MovieDetailsComponent build ');
+    if (kDebugMode) {
+      print('MovieDetailsComponent build ');
+    }
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       buildWhen: (prev,current)=> prev.movieDetailState != current.movieDetailState,
       builder: (BuildContext context, state) {
-        print('MovieDetailsComponent MovieDetailsBloc ');
+        if (kDebugMode) {
+          print('MovieDetailsComponent MovieDetailsBloc ');
+        }
 
         switch (state.movieDetailState) {
           case RequestState.loading:
@@ -32,6 +37,8 @@ class MovieDetailsComponent extends StatelessWidget {
                     description:  state.movieDetailsModel!.description,
                     date:state.movieDetailsModel!.releaseDate,
                     voteAverage: state.movieDetailsModel!.voteAverage,
+                    lang: state.movieDetailsModel!.language,
+                    onTap: () {  },
                   ),
                   const SizedBox(
                       height: 10,

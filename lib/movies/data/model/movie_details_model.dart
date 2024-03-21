@@ -10,7 +10,7 @@ class MovieDetailsModel extends MovieDetails {
     required super.description,
     required super.releaseDate,
     required super.runtimeInSecond,
-    // required super.language,
+    required super.language,
     required super.voteAverage,
     required super.voteCount,
   });
@@ -23,7 +23,7 @@ class MovieDetailsModel extends MovieDetails {
         description: json['overview'],
         releaseDate: json['release_date'],
         runtimeInSecond: json['runtime'],
-        // language: json['spoken_languages'][0]['english_name'],
+        language: json['spoken_languages'][0]['english_name'],
         voteAverage: json['vote_average'],
         voteCount: json['vote_count'],
         genres: List.from(
@@ -32,6 +32,8 @@ class MovieDetailsModel extends MovieDetails {
         ),
       );
 }
+
+
 
 class GenresModel extends Genres {
   const GenresModel({

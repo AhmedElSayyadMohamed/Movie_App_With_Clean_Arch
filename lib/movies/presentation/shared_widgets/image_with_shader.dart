@@ -9,7 +9,7 @@ class ImageWithShader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ShaderMask(
+    return ShaderMask(
       shaderCallback: (Rect rect) {
         return const LinearGradient(
           begin:Alignment.topCenter ,
@@ -21,7 +21,9 @@ class ImageWithShader extends StatelessWidget {
             Colors.transparent,
           ],
           stops: [0, 0.3, 0.5, 1],
-        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height),);
+        ).createShader(
+          Rect.fromLTRB(0, 0, rect.width, rect.height),
+        );
       },
       blendMode: BlendMode.dstIn,
       child: CachedNetworkImage(

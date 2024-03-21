@@ -4,18 +4,21 @@ import '../../../../core/utiles/share_functions.dart';
 import '../movie_rating_widget/movie_rating_wadgit.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
-
   final String title;
   final String description;
+  final String lang;
   final String date;
   final double voteAverage;
-  const MovieDetailsWidget(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.date,
-      required this.voteAverage,
-      });
+  final void Function() onTap;
+  const MovieDetailsWidget({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.voteAverage,
+    required this.lang,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +49,12 @@ class MovieDetailsWidget extends StatelessWidget {
                 voteAverage: voteAverage,
               ),
               const SizedBox(width: 20),
-              const Text('English'),
+              Text(lang),
               const SizedBox(width: 20),
-              IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border))
+              IconButton(
+                  onPressed: onTap,
+                  icon: const Icon(Icons.home_max_outlined),
+              )
             ],
           ),
         ),

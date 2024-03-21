@@ -8,7 +8,12 @@ class TitleAndSeeMoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(start: 16,end:16,top: 20,bottom: 12),
+      padding: const EdgeInsetsDirectional.only(
+        start: 16,
+        end:16,
+        top: 20,
+      bottom: 16,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

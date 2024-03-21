@@ -1,34 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/bloc/movies_bloc.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/events/movies_events.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/states/movie_states.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/movie_rating_widget/movie_rating_wadgit.dart';
 import '../../../../core/utiles/share_functions.dart';
+import '../../../domain/entity/movie.dart';
 import '../movie_image_item.dart';
 
-class MovieWidget extends StatelessWidget {
-  final String image;
-  final String title;
-  final String date;
-  final double voteAverage;
+class MovieWidget extends StatefulWidget {
+  final Movie movie;
+  final int index;
   final Function() onTap;
 
   const MovieWidget({
     super.key,
-    required this.image,
-    required this.title,
-    required this.date,
-    required this.voteAverage,
+    required this.index,
     required this.onTap,
+    required this.movie,
   });
 
   @override
+  State<MovieWidget> createState() => _MovieWidgetState();
+}
+
+class _MovieWidgetState extends State<MovieWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: SizedBox(
-        width: 140,
-        child: Stack(
-          alignment: AlignmentDirectional.topEnd,
-          children: [
-            Card(
+    final Animation<double> _animation = Tween<double>(
+      begin: 1.0,
+      end: 1.5,
+    ).animate(_animationController);
+    return SizedBox(
+      width: 140,
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          InkWell(
+            onTap: widget.onTap,
+            child: Card(
+              elevation: 7,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -37,7 +62,7 @@ class MovieWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: MovieImageItem(
-                      image: image,
+                      image: widget.movie.posterPath!,
                     ),
                   ),
                   Padding(
@@ -46,7 +71,7 @@ class MovieWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          widget.movie.title,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.grey[300],
@@ -58,7 +83,7 @@ class MovieWidget extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.008,
                         ),
                         Text(
-                          dateFormatting(date),
+                          dateFormatting(widget.movie.releaseDate),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.grey[300],
@@ -69,30 +94,58 @@ class MovieWidget extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.008,
                         ),
-                        MovieRatingStar(voteAverage: voteAverage),
+                        MovieRatingStar(voteAverage: widget.movie.voteAverage),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: CircleAvatar(
-                  radius: 13,
-                  backgroundColor: Colors.grey[500]!.withOpacity(0.7),
-                  child: Icon(
-                    Icons.more_horiz_rounded,
-                    color: Colors.grey[300],
+          ),
+          Positioned(
+            bottom: 62,
+            right: 6,
+            child: BlocBuilder<MoviesBloc, MoviesStates>(
+              builder: (BuildContext context, MoviesStates state) {
+                var bloc = BlocProvider.of<MoviesBloc>(context);
+                return SizedBox(
+                  child: InkWell(
+                    onTap: () {
+                      _animationController.forward().then((value) =>_animationController.reverse());
+                      widget.movie.isFavourite =!widget.movie.isFavourite;
+                      bloc.add(AddToFavouriteEvent(widget.movie));
+                    },
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      builder: (BuildContext context, Widget? child) {
+                        return CircleAvatar(
+                            radius: 15 * _animation.value,
+                            backgroundColor: Colors.grey[500]!.withOpacity(0.2),
+                            child: Icon(
+                              widget.movie.isFavourite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 24 * _animation.value,
+                              color:  widget.movie.isFavourite
+                                  ? Colors.redAccent
+                                  : Colors.grey[300],
+                            ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }

@@ -6,6 +6,7 @@ class MoviesStates extends Equatable {
 
   final List<Movie> nowPlayingMovies;
   final RequestState playingNowMovieState;
+  final RequestState playingNowPaginationState;
   final String playingNowErrorMessage;
   int nowPlayingMoviePageNum;
 
@@ -13,23 +14,29 @@ class MoviesStates extends Equatable {
 
   final List<Movie> popularMovies;
   final RequestState popularMovieState;
+  final RequestState popularPaginationState;
   final String popularErrorMessage;
   int popularMoviePageNum;
 
   ///////////////////////
 
-  final RequestState paginationState;
+  final RequestState topPaginationState;
   final List<Movie> topRatedMovies;
   final RequestState topRatedMovieState;
   final String topRatedErrorMessage;
   int topMoviePageNum;
 
   ////////////////////
+  final int toggleBottomNavBarItem;
+  bool toggleFavourite;
 
-  MoviesStates({
+  MoviesStates( {
+    this.toggleFavourite = false,
     this.popularMovies = const [],
     this.popularMovieState = RequestState.loading,
-    this.paginationState = RequestState.loading,
+    this.topPaginationState = RequestState.loading,
+    this.popularPaginationState = RequestState.loading,
+    this.playingNowPaginationState = RequestState.loading,
     this.popularErrorMessage = '',
     this.popularMoviePageNum = 0,
     this.topMoviePageNum = 0,
@@ -40,6 +47,7 @@ class MoviesStates extends Equatable {
     this.topRatedMovies = const [],
     this.topRatedMovieState = RequestState.loading,
     this.topRatedErrorMessage = '',
+    this.toggleBottomNavBarItem = 0,
   });
 
   MoviesStates copyWith({
@@ -48,14 +56,18 @@ class MoviesStates extends Equatable {
     String? playingNowErrorMessage,
     List<Movie>? popularMovies,
     RequestState? popularMovieState,
-    RequestState? paginationState,
+    RequestState? topPaginationState,
+    RequestState? popularPaginationState,
+    RequestState? playingNowPaginationState,
     String? popularErrorMessage,
     int? popularMoviePageNum,
     int? nowPlayingMoviePageNum,
     int? topMoviePageNum,
     List<Movie>? topRatedMovies,
     RequestState? topRatedMovieState,
+    int toggleBottomNavBarItem = 0,
     String? topRatedErrorMessage,
+    bool toggleFavourite = false,
   }) {
     return MoviesStates(
       nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
@@ -64,15 +76,20 @@ class MoviesStates extends Equatable {
       playingNowErrorMessage ?? this.playingNowErrorMessage,
       popularMovies: popularMovies ?? this.popularMovies,
       popularMovieState: popularMovieState ?? this.popularMovieState,
-      paginationState:
-      paginationState ?? this.paginationState,
+      topPaginationState:
+      topPaginationState ?? this.topPaginationState,
+      popularPaginationState:
+      popularPaginationState ?? this.popularPaginationState,
+      playingNowPaginationState:
+      playingNowPaginationState ?? this.playingNowPaginationState,
       popularErrorMessage: popularErrorMessage ?? this.playingNowErrorMessage,
-      nowPlayingMoviePageNum: nowPlayingMoviePageNum ??
-          this.nowPlayingMoviePageNum,
+      nowPlayingMoviePageNum: nowPlayingMoviePageNum ?? this.nowPlayingMoviePageNum,
       topMoviePageNum: topMoviePageNum ?? this.topMoviePageNum,
       popularMoviePageNum: popularMoviePageNum ?? this.popularMoviePageNum,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
       topRatedMovieState: topRatedMovieState ?? this.topRatedMovieState,
+      toggleBottomNavBarItem: toggleBottomNavBarItem,
+      toggleFavourite: toggleFavourite,
       topRatedErrorMessage: topRatedErrorMessage ?? this.topRatedErrorMessage,
     );
   }
@@ -82,13 +99,16 @@ class MoviesStates extends Equatable {
       [
         nowPlayingMovies,
         playingNowMovieState,
+        playingNowPaginationState,
         playingNowErrorMessage,
         popularMovies,
         popularMovieState,
+        popularPaginationState,
         popularErrorMessage,
-        paginationState,
+        topPaginationState,
         topRatedMovies,
         topRatedMovieState,
         topRatedErrorMessage,
+        toggleBottomNavBarItem,
       ];
 }

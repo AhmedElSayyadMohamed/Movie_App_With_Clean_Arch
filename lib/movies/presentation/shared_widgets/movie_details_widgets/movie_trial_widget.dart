@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
@@ -33,14 +34,18 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('MovieTrialWidget build');
+    if (kDebugMode) {
+      print('MovieTrialWidget build');
+    }
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       builder: (BuildContext context, state) {
-        print('MovieTrialWidget BlocBuilder');
+        if (kDebugMode) {
+          print('MovieTrialWidget BlocBuilder');
+        }
 
         switch (state.trailerMovieState) {
           case RequestState.loading:
-            return const LoadingCircleIndicator();
+            return const LoadingCircleIndicator(height: 210,);
           case RequestState.success:
             {
               if (state.trailersMovie.isNotEmpty) {
@@ -50,7 +55,7 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
                 controller: _controller,
                 aspectRatio: 16 / 9,
                 builder: (context,player)=> SizedBox(
-                  height: 210,
+                  height: 240,
                   width: double.infinity,
                   child: YoutubePlayer(
                     controller: _controller,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
@@ -9,17 +10,22 @@ import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_case
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/events/movies_events.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/states/movie_states.dart';
 
-import '../../../../../core/services_locator/services_locator.dart';
+import '../../../screens/movies_screen/movies_screen.dart';
+import '../../../screens/watch_later_screen/watch_later_screen.dart';
 
 class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
-
   final GetNowPlayingMovies _getNowPlayingMovies;
   final GetPopularMovies _getPopularMovies;
   final GetTopRatedMovies _getTopRatedMovies;
+  List<Movie> favouriteMovies = [];
   List<Movie> popMovies = [];
   List<Movie> topMovies = [];
   List<Movie> nowPlayingMovies = [];
-
+  int selectedBottomNavIndex = 0;
+  List<Widget> screens = [
+    const MoviesScreen(),
+    const WatchLaterScreen(),
+  ];
   //////////////////////////////////////////////
 
   MoviesBloc(
@@ -27,10 +33,12 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     this._getPopularMovies,
     this._getTopRatedMovies,
   ) : super(MoviesStates()) {
+    on<ToggleBottomNavBarItemEvent>(_onBottomNavItemTapped);
     on<GetPlayingNowMoviesEvent>(_getPlayingNowMoviesFun);
-    on<GetPopularMoviesEvent>(_getPopularMoviesFun);
     on<GetTopRatedMoviesEvent>(_getTopRatedMoviesFun);
+    on<GetPopularMoviesEvent>(_getPopularMoviesFun);
     on<RefreshHomeScreenEvent>(_refresh);
+    on<AddToFavouriteEvent>(_addMovieToFavourite);
   }
 
   /////////////////////////////////////
@@ -40,10 +48,15 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     Emitter<MoviesStates> emit,
   ) async {
     state.nowPlayingMoviePageNum++;
-    emit(state.copyWith(paginationState: RequestState.loading));
+    emit(state.copyWith(playingNowPaginationState: RequestState.loading));
     // get data
     var result = await _getNowPlayingMovies(
-        numOfPage: Parameters(page: state.nowPlayingMoviePageNum));
+      numOfPage: Parameters(
+        page: state.nowPlayingMoviePageNum,
+      ),
+    );
+    emit(state.copyWith(playingNowPaginationState: RequestState.success));
+
     result.fold((left) {
       emit(
         state.copyWith(
@@ -52,11 +65,11 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         ),
       );
     }, (movies) {
-
       nowPlayingMovies.addAll(movies);
+
       emit(
         state.copyWith(
-          nowPlayingMovies: movies,
+          nowPlayingMovies: nowPlayingMovies.toSet().toList(),
           playingNowMovieState: RequestState.success,
         ),
       );
@@ -69,15 +82,13 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     Emitter<MoviesStates> emit,
   ) async {
     state.popularMoviePageNum++;
-    // print('popular${state.popularMoviePageNum}');
-    // print(state.popularMovies.length);
-    // print(state);
 
     emit(
       state.copyWith(
-        paginationState: RequestState.loading,
+        popularPaginationState: RequestState.loading,
       ),
     );
+
     // get data
     var result = await _getPopularMovies(
       numOfPage: Parameters(
@@ -86,7 +97,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     );
     emit(
       state.copyWith(
-        paginationState: RequestState.success,
+        popularPaginationState: RequestState.success,
       ),
     );
 
@@ -104,7 +115,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         popMovies.addAll(right);
         emit(
           state.copyWith(
-            popularMovies: popMovies,
+            popularMovies: popMovies.toSet().toList(),
             popularMovieState: RequestState.success,
           ),
         );
@@ -120,12 +131,17 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     state.topMoviePageNum++;
     emit(
       state.copyWith(
-        paginationState: RequestState.loading,
+        topPaginationState: RequestState.loading,
       ),
     );
     var result = await _getTopRatedMovies(
       numOfPage: Parameters(
-        page: state.topMoviePageNum,
+        page: event.page,
+      ),
+    );
+    emit(
+      state.copyWith(
+        topPaginationState: RequestState.success,
       ),
     );
     result.fold(
@@ -141,7 +157,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         topMovies.addAll(right);
         emit(
           state.copyWith(
-            topRatedMovies: topMovies,
+            topRatedMovies: topMovies.toSet().toList(),
             topRatedMovieState: RequestState.success,
           ),
         );
@@ -149,17 +165,49 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     );
   }
 
-
   /////////////////////////////////////////////
   FutureOr<void> _refresh(
     RefreshHomeScreenEvent event,
     Emitter<MoviesStates> emit,
   ) {
-      add(GetPlayingNowMoviesEvent());
-      add(GetPopularMoviesEvent());
-      add(GetTopRatedMoviesEvent());
-      popMovies.shuffle();
-      topMovies.shuffle();
-      nowPlayingMovies.shuffle();
+    add(GetPlayingNowMoviesEvent());
+    add(GetPopularMoviesEvent());
+    add(GetTopRatedMoviesEvent());
+    popMovies.shuffle();
+    topMovies.shuffle();
+    nowPlayingMovies.shuffle();
+  }
+
+  FutureOr<void> _onBottomNavItemTapped(
+    ToggleBottomNavBarItemEvent event,
+    Emitter<MoviesStates> emit,
+  ) {
+    selectedBottomNavIndex = event.index;
+    //
+    emit(state.copyWith(
+      toggleBottomNavBarItem: selectedBottomNavIndex,
+    ));
+  }
+
+  FutureOr<void> _addMovieToFavourite(
+    AddToFavouriteEvent event,
+    Emitter<MoviesStates> emit,
+  ) {
+
+
+    if(event.movie.isFavourite==true){
+      favouriteMovies.add(event.movie);
+      emit(state.copyWith(
+        toggleFavourite:!state.toggleFavourite,
+      ));
+
+    }else{
+      favouriteMovies.remove(event.movie);
+      emit(state.copyWith(
+        toggleFavourite:!state.toggleFavourite,
+      ));
+    }
+    print(favouriteMovies.length);
+    print(favouriteMovies);
   }
 }

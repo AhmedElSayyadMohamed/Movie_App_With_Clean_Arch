@@ -23,10 +23,8 @@ dependencies:
   animate_do:
   cached_network_image:
   carousel_slider:
-#  transparent_image: ^2.0.1
   intl: ^0.19.0
-#  flutter_rating_bar: ^4.0.1
-#  youtube_player_flutter: ^9.0.0
+  lottie:
   google_fonts: ^4.0.5
   youtube_player_iframe: ^4.0.4
   flutter_native_splash: ^2.3.7
@@ -41,8 +39,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
