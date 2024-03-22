@@ -50,3 +50,7 @@ class AddToFavouriteEvent extends MoviesEvents {
   Movie movie;
   AddToFavouriteEvent(this.movie);
 }
+class RemoveFromFavouriteEvent extends MoviesEvents {
+  Movie movie;
+  RemoveFromFavouriteEvent(this.movie);
+}

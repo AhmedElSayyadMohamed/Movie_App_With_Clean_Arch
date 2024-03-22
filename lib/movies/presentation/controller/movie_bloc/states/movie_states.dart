@@ -28,11 +28,13 @@ class MoviesStates extends Equatable {
 
   ////////////////////
   final int toggleBottomNavBarItem;
-  bool toggleFavourite;
+  final List<Movie> favouriteMovies;
+  final RequestState favouriteMovieState;
 
-  MoviesStates( {
-    this.toggleFavourite = false,
+  MoviesStates({
+    this.favouriteMovies = const[],
     this.popularMovies = const [],
+    this.favouriteMovieState = RequestState.loading,
     this.popularMovieState = RequestState.loading,
     this.topPaginationState = RequestState.loading,
     this.popularPaginationState = RequestState.loading,
@@ -65,9 +67,10 @@ class MoviesStates extends Equatable {
     int? topMoviePageNum,
     List<Movie>? topRatedMovies,
     RequestState? topRatedMovieState,
-    int toggleBottomNavBarItem = 0,
+    RequestState? favouriteMovieState,
+    int? toggleBottomNavBarItem,
     String? topRatedErrorMessage,
-    bool toggleFavourite = false,
+    List<Movie>? favouriteMovies,
   }) {
     return MoviesStates(
       nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
@@ -83,13 +86,16 @@ class MoviesStates extends Equatable {
       playingNowPaginationState:
       playingNowPaginationState ?? this.playingNowPaginationState,
       popularErrorMessage: popularErrorMessage ?? this.playingNowErrorMessage,
-      nowPlayingMoviePageNum: nowPlayingMoviePageNum ?? this.nowPlayingMoviePageNum,
+      nowPlayingMoviePageNum: nowPlayingMoviePageNum ??
+          this.nowPlayingMoviePageNum,
       topMoviePageNum: topMoviePageNum ?? this.topMoviePageNum,
       popularMoviePageNum: popularMoviePageNum ?? this.popularMoviePageNum,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
       topRatedMovieState: topRatedMovieState ?? this.topRatedMovieState,
-      toggleBottomNavBarItem: toggleBottomNavBarItem,
-      toggleFavourite: toggleFavourite,
+      favouriteMovieState: favouriteMovieState ?? this.favouriteMovieState,
+      toggleBottomNavBarItem: toggleBottomNavBarItem ??
+          this.toggleBottomNavBarItem,
+      favouriteMovies: favouriteMovies ?? this.favouriteMovies,
       topRatedErrorMessage: topRatedErrorMessage ?? this.topRatedErrorMessage,
     );
   }
@@ -110,5 +116,7 @@ class MoviesStates extends Equatable {
         topRatedMovieState,
         topRatedErrorMessage,
         toggleBottomNavBarItem,
+        favouriteMovies,
+        favouriteMovieState,
       ];
 }

@@ -22,11 +22,10 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
   List<Movie> topMovies = [];
   List<Movie> nowPlayingMovies = [];
   int selectedBottomNavIndex = 0;
-  List<Widget> screens = [
-    const MoviesScreen(),
-    const WatchLaterScreen(),
-  ];
+
   //////////////////////////////////////////////
+
+  static MoviesBloc get(context) => BlocProvider.of(context);
 
   MoviesBloc(
     this._getNowPlayingMovies,
@@ -39,6 +38,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     on<GetPopularMoviesEvent>(_getPopularMoviesFun);
     on<RefreshHomeScreenEvent>(_refresh);
     on<AddToFavouriteEvent>(_addMovieToFavourite);
+    // on<RemoveFromFavouriteEvent>(_removeMovieFromFavourite);
   }
 
   /////////////////////////////////////
@@ -183,31 +183,58 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     Emitter<MoviesStates> emit,
   ) {
     selectedBottomNavIndex = event.index;
-    //
-    emit(state.copyWith(
-      toggleBottomNavBarItem: selectedBottomNavIndex,
-    ));
+    emit(
+      state.copyWith(
+        toggleBottomNavBarItem: selectedBottomNavIndex,
+      ),
+    );
   }
 
   FutureOr<void> _addMovieToFavourite(
     AddToFavouriteEvent event,
     Emitter<MoviesStates> emit,
   ) {
-
-
-    if(event.movie.isFavourite==true){
+    favouriteMovies.removeWhere((element) => element.isFavourite==false);
+    event.movie.isFavourite = !event.movie.isFavourite;
+    state.copyWith(
+      favouriteMovies: favouriteMovies,
+      favouriteMovieState: RequestState.loading,
+    );
+    if (event.movie.isFavourite == true) {
       favouriteMovies.add(event.movie);
-      emit(state.copyWith(
-        toggleFavourite:!state.toggleFavourite,
-      ));
-
-    }else{
+      print(favouriteMovies.length);
+      print(state.favouriteMovies.length);
+      emit(
+        state.copyWith(
+          favouriteMovies: favouriteMovies,
+          favouriteMovieState: RequestState.success,
+        ),
+      );
+    } else if (event.movie.isFavourite == false) {
       favouriteMovies.remove(event.movie);
-      emit(state.copyWith(
-        toggleFavourite:!state.toggleFavourite,
-      ));
     }
     print(favouriteMovies.length);
-    print(favouriteMovies);
+    print(state.favouriteMovies.length);
+    emit(
+      state.copyWith(
+        favouriteMovies: favouriteMovies,
+        favouriteMovieState: RequestState.error,
+      ),
+    );
   }
+
+  // FutureOr<void> _removeMovieFromFavourite(
+  //   RemoveFromFavouriteEvent event,
+  //   Emitter<MoviesStates> emit,
+  // ) {
+  //   event.movie.isFavourite == false;
+  //
+  //   favouriteMovies.remove(event.movie);
+  //
+  //   // emit(
+  //   //   state.copyWith(
+  //   //     favouriteStates: RequestState.success,
+  //   //   ),
+  //   // );
+  // }
 }
