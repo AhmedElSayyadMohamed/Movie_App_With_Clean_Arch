@@ -12,8 +12,9 @@ class WatchLaterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocBuilder<MoviesBloc, MoviesStates>(
-      buildWhen: (prev,current)=>prev.favouriteMovieState!=current.favouriteMovieState,
+      // buildWhen: (prev,current)=>prev.favouriteMovieState!=current.favouriteMovieState,
       builder: (BuildContext context, state) {
+        print(state);
         return Padding(
           padding: const EdgeInsetsDirectional.only(
             top: 20,

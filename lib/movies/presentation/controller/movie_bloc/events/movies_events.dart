@@ -46,11 +46,7 @@ class ToggleBottomNavBarItemEvent extends MoviesEvents {
   final int index;
   ToggleBottomNavBarItemEvent(this.index);
 }
-class AddToFavouriteEvent extends MoviesEvents {
+class ToggleFavouriteEvent extends MoviesEvents {
   Movie movie;
-  AddToFavouriteEvent(this.movie);
-}
-class RemoveFromFavouriteEvent extends MoviesEvents {
-  Movie movie;
-  RemoveFromFavouriteEvent(this.movie);
+  ToggleFavouriteEvent(this.movie);
 }

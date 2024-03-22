@@ -51,7 +51,6 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
         if (kDebugMode) {
           print('PopularMoviesComponent BlocBuilder');
         }
-
           switch (state.topRatedMovieState) {
             case RequestState.loading:
               return const LoadingCircleIndicator();
@@ -63,7 +62,6 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
                   child: ListView.builder(
                     controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
                     padding: const EdgeInsetsDirectional.only(start: 16),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
@@ -77,9 +75,10 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
                               ),
                               context,
                             );
-                          }, index: index,
+                          },
+                          index: index,
                         );
-                      } else {
+                      } else if (state.topRatedMovies.isNotEmpty) {
                         return const LoadingCircleIndicator();
                       }
                     },

@@ -3,7 +3,6 @@ import 'package:movie_app_with_clean_arch/core/constance/request_enum.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 
 class MoviesStates extends Equatable {
-
   final List<Movie> nowPlayingMovies;
   final RequestState playingNowMovieState;
   final RequestState playingNowPaginationState;
@@ -31,8 +30,8 @@ class MoviesStates extends Equatable {
   final List<Movie> favouriteMovies;
   final RequestState favouriteMovieState;
 
-  MoviesStates({
-    this.favouriteMovies = const[],
+    MoviesStates({
+    this.favouriteMovies = const [],
     this.popularMovies = const [],
     this.favouriteMovieState = RequestState.loading,
     this.popularMovieState = RequestState.loading,
@@ -76,33 +75,31 @@ class MoviesStates extends Equatable {
       nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
       playingNowMovieState: playingNowMovieState ?? this.playingNowMovieState,
       playingNowErrorMessage:
-      playingNowErrorMessage ?? this.playingNowErrorMessage,
+          playingNowErrorMessage ?? this.playingNowErrorMessage,
       popularMovies: popularMovies ?? this.popularMovies,
       popularMovieState: popularMovieState ?? this.popularMovieState,
-      topPaginationState:
-      topPaginationState ?? this.topPaginationState,
+      topPaginationState: topPaginationState ?? this.topPaginationState,
       popularPaginationState:
-      popularPaginationState ?? this.popularPaginationState,
+          popularPaginationState ?? this.popularPaginationState,
       playingNowPaginationState:
-      playingNowPaginationState ?? this.playingNowPaginationState,
+          playingNowPaginationState ?? this.playingNowPaginationState,
       popularErrorMessage: popularErrorMessage ?? this.playingNowErrorMessage,
-      nowPlayingMoviePageNum: nowPlayingMoviePageNum ??
-          this.nowPlayingMoviePageNum,
+      nowPlayingMoviePageNum:
+          nowPlayingMoviePageNum ?? this.nowPlayingMoviePageNum,
       topMoviePageNum: topMoviePageNum ?? this.topMoviePageNum,
       popularMoviePageNum: popularMoviePageNum ?? this.popularMoviePageNum,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
       topRatedMovieState: topRatedMovieState ?? this.topRatedMovieState,
       favouriteMovieState: favouriteMovieState ?? this.favouriteMovieState,
-      toggleBottomNavBarItem: toggleBottomNavBarItem ??
-          this.toggleBottomNavBarItem,
+      toggleBottomNavBarItem:
+          toggleBottomNavBarItem ?? this.toggleBottomNavBarItem,
       favouriteMovies: favouriteMovies ?? this.favouriteMovies,
       topRatedErrorMessage: topRatedErrorMessage ?? this.topRatedErrorMessage,
     );
   }
 
   @override
-  List<Object> get props =>
-      [
+  List<Object> get props => [
         nowPlayingMovies,
         playingNowMovieState,
         playingNowPaginationState,

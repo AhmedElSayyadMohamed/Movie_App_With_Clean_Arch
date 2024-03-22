@@ -26,9 +26,8 @@ class MovieCard extends StatefulWidget {
 
 class _MovieCardState extends State<MovieCard>
     with SingleTickerProviderStateMixin {
-
   late AnimationController _animationController;
-  late final Animation<double> animation ;
+  late final Animation<double> animation;
 
   @override
   void initState() {
@@ -37,130 +36,133 @@ class _MovieCardState extends State<MovieCard>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-     animation = Tween<double>(
-    begin: 1.0,
-    end: 1.5,
+    animation = Tween<double>(
+      begin: 1.0,
+      end: 1.5,
     ).animate(_animationController);
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: InkWell(
-            onTap: ()=> goToMovieDetails,
-            child: Container(
-              height: 170,
-              padding: const EdgeInsetsDirectional.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: MovieImageItem(
-                      image: widget.movie.posterPath!,
-                      bottomBorder: 8,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: InkWell(
+        onTap: () => goToMovieDetails,
+        child: Container(
+          height: 170,
+          padding: const EdgeInsetsDirectional.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 1,
+                child: MovieImageItem(
+                  image: widget.movie.posterPath!,
+                  bottomBorder: 8,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Text(
-                                  widget.movie.title,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              widget.movie.title,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
                               ),
-                              Expanded(
-                                child:SizedBox(
-                                      child: InkWell(
-                                        onTap: () {
-                                          _animationController.forward().then((value) =>_animationController.reverse());
-                                          sl<MoviesBloc>().add(AddToFavouriteEvent(widget.movie));
-                                        },
-                                        child: AnimatedBuilder(
-                                          animation: animation,
-                                          builder: (BuildContext context, Widget? child) {
-                                            return CircleAvatar(
-                                              radius: 15 * animation.value,
-                                              backgroundColor: Colors.grey[500]!.withOpacity(0.2),
-                                              child: Icon(
-                                                widget.movie.isFavourite
-                                                    ? Icons.favorite
-                                                    : Icons.favorite_border,
-                                                size: 24 * animation.value,
-                                                color:  widget.movie.isFavourite
-                                                    ? Colors.redAccent
-                                                    : Colors.grey[300],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 11.0,
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsetsDirectional.all(
-                                    3,
-                                  ),
-                                  color: Colors.red[400],
-                                  child: Text(
-                                      "${dateFormatting(widget.movie.releaseDate).split(',').toList()[1]} "),
-                                ),
-                                const HorizontalSpace(pixels: 15),
-                                MovieRatingStar(
-                                  voteAverage: widget.movie.voteAverage,
-                                ),
-                              ],
                             ),
                           ),
                           Expanded(
-                            child: Text(
-                              widget.movie.overview,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: GoogleFonts.abel(
-                                fontSize: 15,
+                            child: SizedBox(
+                              child: InkWell(
+                                onTap: () {
+                                  _animationController.forward().then((value) =>
+                                      _animationController.reverse());
+                                  sl<MoviesBloc>()
+                                      .add(ToggleFavouriteEvent(widget.movie));
+                                },
+                                child: AnimatedBuilder(
+                                  animation: animation,
+                                  builder:
+                                      (BuildContext context, Widget? child) {
+                                    return CircleAvatar(
+                                      radius: 15 * animation.value,
+                                      backgroundColor:
+                                          Colors.grey[500]!.withOpacity(0.2),
+                                      child: Icon(
+                                        widget.movie.isFavourite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        size: 24 * animation.value,
+                                        color: widget.movie.isFavourite
+                                            ? Colors.redAccent
+                                            : Colors.grey[300],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 11.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsetsDirectional.all(
+                                3,
+                              ),
+                              color: Colors.red[400],
+                              child: Text(
+                                  "${dateFormatting(widget.movie.releaseDate).split(',').toList()[1]} "),
+                            ),
+                            const HorizontalSpace(pixels: 15),
+                            MovieRatingStar(
+                              voteAverage: widget.movie.voteAverage,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          widget.movie.overview,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: GoogleFonts.abel(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        );
+        ),
+      ),
+    );
   }
 
-
-  get goToMovieDetails{
+  get goToMovieDetails {
     navigatePushTo(
       MovieDetailsScreen(
         movie: widget.movie,

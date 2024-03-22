@@ -42,8 +42,7 @@ class _PopularMoviesComponentState extends State<PopularMoviesComponent> {
       print('PopularMoviesComponent build');
     }
     return BlocBuilder<MoviesBloc, MoviesStates>(
-        buildWhen: (previous, current) =>
-            ((previous.popularMovieState != current.popularMovieState) ||
+        buildWhen: (previous, current) => ((previous.popularMovieState != current.popularMovieState) ||
                 (previous.popularPaginationState != current.popularPaginationState)),
         builder: (context, state) {
           if (kDebugMode) {

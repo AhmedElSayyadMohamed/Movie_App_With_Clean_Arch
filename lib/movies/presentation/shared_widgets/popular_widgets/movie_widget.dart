@@ -27,7 +27,6 @@ class MovieWidget extends StatefulWidget {
 class _MovieWidgetState extends State<MovieWidget>
     with SingleTickerProviderStateMixin {
 
-
   late AnimationController _animationController;
   late final Animation<double> _animation ;
 
@@ -110,7 +109,7 @@ class _MovieWidgetState extends State<MovieWidget>
                 child:InkWell(
                   onTap: () {
                     _animationController.forward().then((value) =>_animationController.reverse());
-                    BlocProvider.of<MoviesBloc>(context).add(AddToFavouriteEvent(widget.movie));
+                    BlocProvider.of<MoviesBloc>(context).add(ToggleFavouriteEvent(widget.movie));
                   },
                   child: AnimatedBuilder(
                     animation: _animation,
