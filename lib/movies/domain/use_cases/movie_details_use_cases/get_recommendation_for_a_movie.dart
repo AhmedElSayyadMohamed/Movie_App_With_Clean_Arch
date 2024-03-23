@@ -16,7 +16,4 @@ class GetRecommendationsUseCase extends BaseMovieDetailsUseCases<List<Movie>,Par
     return await _baseMoviesRepository.getRecommendationForAMovie(movieId:parameter.movieId!);
   }
 
-
-
-
 }

@@ -27,7 +27,6 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
   }
 
   Future<void> _onScroll() async {
@@ -48,6 +47,8 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
       (previous.topRatedMovieState != current.topRatedMovieState)||
           ( previous.topPaginationState != current.topPaginationState),
       builder: (BuildContext context, state) {
+        _scrollController.addListener(_onScroll);
+
         if (kDebugMode) {
           print('PopularMoviesComponent BlocBuilder');
         }
@@ -78,7 +79,7 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
                           },
                           index: index,
                         );
-                      } else if (state.topRatedMovies.isNotEmpty) {
+                      } else  {
                         return const LoadingCircleIndicator();
                       }
                     },

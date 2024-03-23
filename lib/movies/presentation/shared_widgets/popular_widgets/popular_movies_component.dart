@@ -72,6 +72,8 @@ class _PopularMoviesComponentState extends State<PopularMoviesComponent> {
                         );
                       } else if (state.popularMovies.isNotEmpty) {
                         return const LoadingCircleIndicator();
+                      }else{
+                        return const SizedBox.shrink();
                       }
                     },
                     itemCount: state.popularMovies.length + 1,

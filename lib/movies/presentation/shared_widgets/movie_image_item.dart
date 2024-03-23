@@ -33,7 +33,7 @@ class MovieImageItem extends StatelessWidget{
             ),
           ),
         ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) =>Image.network('https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg',fit: BoxFit.cover,),
       ),
     );
   }

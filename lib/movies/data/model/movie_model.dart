@@ -1,5 +1,7 @@
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 
+import 'movie_details_model.dart';
+
 class MovieModel extends Movie {
    MovieModel({
     required super.id,
@@ -10,16 +12,21 @@ class MovieModel extends Movie {
     required super.releaseDate,
     required super.posterPath,
      super.isFavourite,
+     required super.genres,
+     required super.language,
   });
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
+  factory MovieModel.fromJson(Map<String, dynamic> json,
+      {List genres=const[], String lang=''}) => MovieModel(
         isFavourite: false,
         id: json['id'],
-        backdropPath: json['backdrop_path']??'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png',
+        backdropPath: json['backdrop_path'],
         title: json['title'],
         overview: json['overview'],
         voteAverage: json['vote_average'],
         releaseDate: json['release_date'],
-        posterPath: json['poster_path']??'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png',
+        posterPath: json['poster_path'],
+        genres:genres.isEmpty?[]:List.from(genres.map((element) => GenresModel.fromJson(element))),
+        language: lang ==''?'':lang,
       );
 }

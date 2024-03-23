@@ -27,7 +27,7 @@ class RecommendationMoviesComponents extends StatelessWidget {
                 state.recommendationsMovies.isEmpty?
                 const SizedBox.shrink()
                     :const Padding(
-                  padding: EdgeInsetsDirectional.symmetric(vertical: 20.0),
+                  padding: EdgeInsetsDirectional.symmetric(vertical: 10.0),
                   child: Text(
                     'MORE LIKE THIS',
                     style: TextStyle(fontSize: 16),

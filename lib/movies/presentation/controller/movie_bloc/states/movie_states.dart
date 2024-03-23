@@ -26,14 +26,10 @@ class MoviesStates extends Equatable {
   int topMoviePageNum;
 
   ////////////////////
-  final int toggleBottomNavBarItem;
-  final List<Movie> favouriteMovies;
-  final RequestState favouriteMovieState;
+
 
     MoviesStates({
-    this.favouriteMovies = const [],
     this.popularMovies = const [],
-    this.favouriteMovieState = RequestState.loading,
     this.popularMovieState = RequestState.loading,
     this.topPaginationState = RequestState.loading,
     this.popularPaginationState = RequestState.loading,
@@ -48,7 +44,6 @@ class MoviesStates extends Equatable {
     this.topRatedMovies = const [],
     this.topRatedMovieState = RequestState.loading,
     this.topRatedErrorMessage = '',
-    this.toggleBottomNavBarItem = 0,
   });
 
   MoviesStates copyWith({
@@ -90,10 +85,6 @@ class MoviesStates extends Equatable {
       popularMoviePageNum: popularMoviePageNum ?? this.popularMoviePageNum,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
       topRatedMovieState: topRatedMovieState ?? this.topRatedMovieState,
-      favouriteMovieState: favouriteMovieState ?? this.favouriteMovieState,
-      toggleBottomNavBarItem:
-          toggleBottomNavBarItem ?? this.toggleBottomNavBarItem,
-      favouriteMovies: favouriteMovies ?? this.favouriteMovies,
       topRatedErrorMessage: topRatedErrorMessage ?? this.topRatedErrorMessage,
     );
   }
@@ -112,8 +103,5 @@ class MoviesStates extends Equatable {
         topRatedMovies,
         topRatedMovieState,
         topRatedErrorMessage,
-        toggleBottomNavBarItem,
-        favouriteMovies,
-        favouriteMovieState,
       ];
 }

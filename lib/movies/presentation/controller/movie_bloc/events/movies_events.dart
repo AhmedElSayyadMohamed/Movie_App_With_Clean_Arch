@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../domain/entity/movie.dart';
 
 abstract class MoviesEvents extends Equatable {
   @override
@@ -42,11 +41,3 @@ class RefreshHomeScreenEvent extends MoviesEvents {
   List<Object> get props => [];
 }
 
-class ToggleBottomNavBarItemEvent extends MoviesEvents {
-  final int index;
-  ToggleBottomNavBarItemEvent(this.index);
-}
-class ToggleFavouriteEvent extends MoviesEvents {
-  Movie movie;
-  ToggleFavouriteEvent(this.movie);
-}

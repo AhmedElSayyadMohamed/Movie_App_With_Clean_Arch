@@ -14,11 +14,9 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
   final GetNowPlayingMovies _getNowPlayingMovies;
   final GetPopularMovies _getPopularMovies;
   final GetTopRatedMovies _getTopRatedMovies;
-  List<Movie> favouriteMovies = [];
   List<Movie> popMovies = [];
   List<Movie> topMovies = [];
   List<Movie> nowPlayingMovies = [];
-  int selectedBottomNavIndex = 0;
 
   //////////////////////////////////////////////
 
@@ -29,11 +27,9 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     this._getPopularMovies,
     this._getTopRatedMovies,
   ) : super(MoviesStates()) {
-    on<ToggleBottomNavBarItemEvent>(_onBottomNavItemTapped);
     on<GetPlayingNowMoviesEvent>(_getPlayingNowMoviesFun);
     on<GetTopRatedMoviesEvent>(_getTopRatedMoviesFun);
     on<GetPopularMoviesEvent>(_getPopularMoviesFun);
-    on<ToggleFavouriteEvent>(_toggleFavourite);
     on<RefreshHomeScreenEvent>(_refresh);
   }
 
@@ -63,7 +59,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
       nowPlayingMovies.addAll(movies);
       emit(
         state.copyWith(
-          nowPlayingMovies: nowPlayingMovies.toSet().toList(),
+          nowPlayingMovies: nowPlayingMovies,
           playingNowMovieState: RequestState.success,
         ),
       );
@@ -109,7 +105,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         popMovies.addAll(right);
         emit(
           state.copyWith(
-            popularMovies: popMovies.toSet().toList(),
+            popularMovies: popMovies,
             popularMovieState: RequestState.success,
           ),
         );
@@ -132,7 +128,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
 
     var result = await _getTopRatedMovies(
       numOfPage: Parameters(
-        page: event.page,
+        page:  state.topMoviePageNum,
       ),
     );
     emit(
@@ -153,7 +149,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         topMovies.addAll(right);
         emit(
           state.copyWith(
-            topRatedMovies: topMovies.toSet().toList(),
+            topRatedMovies: topMovies,
             topRatedMovieState: RequestState.success,
           ),
         );
@@ -172,44 +168,5 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     popMovies.shuffle();
     topMovies.shuffle();
     nowPlayingMovies.shuffle();
-  }
-
-  FutureOr<void> _onBottomNavItemTapped(
-    ToggleBottomNavBarItemEvent event,
-    Emitter<MoviesStates> emit,
-  ) {
-    selectedBottomNavIndex = event.index;
-    emit(
-      state.copyWith(
-        toggleBottomNavBarItem: selectedBottomNavIndex,
-      ),
-    );
-  }
-
-  FutureOr<void> _toggleFavourite(
-    ToggleFavouriteEvent event,
-    Emitter<MoviesStates> emit,
-  ) {
-
-    event.movie.isFavourite = !event.movie.isFavourite;
-    emit(
-      state.copyWith(
-        favouriteMovies: favouriteMovies,
-        favouriteMovieState: RequestState.loading,
-      ),
-    );
-    if (event.movie.isFavourite == true) {
-      favouriteMovies.add(event.movie);
-
-    }
-    else if (event.movie.isFavourite == false) {
-      favouriteMovies.remove(event.movie);
-    }
-    emit(
-      state.copyWith(
-        favouriteMovies: favouriteMovies,
-        favouriteMovieState: RequestState.success,
-      ),
-    );
   }
 }
