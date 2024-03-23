@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:movie_app_with_clean_arch/core/network/server_error_exception.dart';
-import 'package:movie_app_with_clean_arch/movies/data/data_source/movies_remote_data_source.dart';
+import 'package:movie_app_with_clean_arch/movies/data/data_source/remote/movies_remote_data_source.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/actor.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
@@ -45,7 +45,7 @@ class MoviesRepository implements BaseMoviesRepository {
 
 
   @override
-  Future<Either<Failure, MovieDetails>> getMovieDetails({required int movieId})async {
+  Future<Either<Failure, Movie>> getMovieDetails({required int movieId})async {
 
     final result = await _baseRemoteMovieDataSource.getMovieDetails(movieId: movieId);
     try{

@@ -5,9 +5,11 @@ import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_d
 import '../../../../core/services_locator/services_locator.dart';
 import '../../../domain/entity/movie.dart';
 import '../../shared_widgets/movie_cast_component/movie_cast_component.dart';
-import '../../shared_widgets/movie_details_widgets/movie_details_component.dart';
-import '../../shared_widgets/movie_details_widgets/movie_trial_widget.dart';
-import '../../shared_widgets/movie_details_widgets/recommendation_movies_components.dart';
+import '../../shared_widgets/movie_details_screen_widgets/movie_details_component.dart';
+import '../../shared_widgets/movie_details_screen_widgets/movie_trial_widget.dart';
+import '../../shared_widgets/movie_details_screen_widgets/recommendation_movies_components.dart';
+
+
 
 class MovieDetailsScreen extends StatelessWidget {
   final Movie movie;
@@ -28,13 +30,13 @@ class MovieDetailsScreen extends StatelessWidget {
               MovieTrialWidget(
                 movie: movie,
               ),
-              const Padding(
-                padding: EdgeInsetsDirectional.only(start: 12.0, end: 12, top: 15),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 12.0, end: 12, top: 15),
                 child: Column(
                   children: [
-                    MovieDetailsComponent(),
-                    MovieCastComponent(),
-                    RecommendationMoviesComponents(),
+                    MovieDetailsComponent(movie: movie,),
+                    const MovieCastComponent(),
+                    const RecommendationMoviesComponents(),
                   ],
                 ),
               ),

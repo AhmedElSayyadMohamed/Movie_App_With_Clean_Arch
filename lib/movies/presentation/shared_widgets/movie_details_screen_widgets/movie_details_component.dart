@@ -8,10 +8,12 @@ import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_d
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_state.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/error_message_widget.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/loading_circle_indicator_widget.dart';
+import '../../../domain/entity/movie.dart';
 import '../movie_details_widget/movie_details_widget.dart';
 
 class MovieDetailsComponent extends StatelessWidget {
-  const MovieDetailsComponent({super.key});
+  final Movie movie;
+  const MovieDetailsComponent({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class MovieDetailsComponent extends StatelessWidget {
       print('MovieDetailsComponent build ');
     }
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
+
       buildWhen: (prev,current)=> prev.movieDetailState != current.movieDetailState,
       builder: (BuildContext context, state) {
         if (kDebugMode) {
@@ -33,7 +36,7 @@ class MovieDetailsComponent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MovieDetailsWidget(
-                    movie: state.movieDetailsModel!,
+                    movie: movie,
                   ),
                   const SizedBox(
                       height: 10,
@@ -65,7 +68,8 @@ class MovieDetailsComponent extends StatelessWidget {
                       )
                     ],
                   ),
-                ]);
+                ],
+            );
 
           case RequestState.error:
             return ErrorMessageWidget(

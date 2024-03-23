@@ -14,11 +14,9 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
   final GetNowPlayingMovies _getNowPlayingMovies;
   final GetPopularMovies _getPopularMovies;
   final GetTopRatedMovies _getTopRatedMovies;
-  List<Movie> favouriteMovies = [];
   List<Movie> popMovies = [];
   List<Movie> topMovies = [];
   List<Movie> nowPlayingMovies = [];
-  int selectedBottomNavIndex = 0;
 
   //////////////////////////////////////////////
 
@@ -29,11 +27,9 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     this._getPopularMovies,
     this._getTopRatedMovies,
   ) : super(MoviesStates()) {
-    on<ToggleBottomNavBarItemEvent>(_onBottomNavItemTapped);
     on<GetPlayingNowMoviesEvent>(_getPlayingNowMoviesFun);
     on<GetTopRatedMoviesEvent>(_getTopRatedMoviesFun);
     on<GetPopularMoviesEvent>(_getPopularMoviesFun);
-    on<ToggleFavouriteEvent>(_toggleFavourite);
     on<RefreshHomeScreenEvent>(_refresh);
   }
 
@@ -173,45 +169,4 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     topMovies.shuffle();
     nowPlayingMovies.shuffle();
   }
-
-  FutureOr<void> _onBottomNavItemTapped(
-    ToggleBottomNavBarItemEvent event,
-    Emitter<MoviesStates> emit,
-  ) {
-    selectedBottomNavIndex = event.index;
-    emit(
-      state.copyWith(
-        toggleBottomNavBarItem: selectedBottomNavIndex,
-      ),
-    );
-  }
-
-  FutureOr<void> _toggleFavourite(
-    ToggleFavouriteEvent event,
-    Emitter<MoviesStates> emit,
-  ) {
-
-    if(event.movie is Movie){
-    event.movie!.isFavourite = ! event.movie!.isFavourite;
-    event.movieDetails!.isFavourite =! event.movieDetails
-    emit(
-      state.copyWith(
-        favouriteMovies: favouriteMovies,
-        favouriteMovieState: RequestState.loading,
-      ),
-    );
-    if (event.movie!.isFavourite == true) {
-      favouriteMovies.add(event.movie!);
-
-    }
-    else if (event.movie!.isFavourite == false) {
-      favouriteMovies.remove(event.movie);
-    }
-    emit(
-      state.copyWith(
-        favouriteMovies: favouriteMovies,
-        favouriteMovieState: RequestState.success,
-      ),
-    );
-  }}
 }

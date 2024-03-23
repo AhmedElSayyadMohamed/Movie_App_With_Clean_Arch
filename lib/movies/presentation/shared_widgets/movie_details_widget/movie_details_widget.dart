@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app_with_clean_arch/movies/domain/entity/movie_details.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/controller/general_bloc/general_bloc.dart';
+import '../../../../core/services_locator/services_locator.dart';
 import '../../../../core/utiles/share_functions.dart';
-import '../../controller/movie_bloc/bloc/movies_bloc.dart';
-import '../../controller/movie_bloc/events/movies_events.dart';
+import '../../../domain/entity/movie.dart';
 import '../movie_rating_widget/movie_rating_wadgit.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
-  final MovieDetails movie;
+  final Movie movie;
   const MovieDetailsWidget({
     super.key,
     required this.movie,
@@ -18,7 +18,8 @@ class MovieDetailsWidget extends StatefulWidget {
   State<MovieDetailsWidget> createState() => _MovieDetailsWidgetState();
 }
 
-class _MovieDetailsWidgetState extends State<MovieDetailsWidget>  with SingleTickerProviderStateMixin {
+class _MovieDetailsWidgetState extends State<MovieDetailsWidget>
+    with SingleTickerProviderStateMixin {
 
   late AnimationController _animationController;
   late final Animation<double> _animation ;
@@ -67,25 +68,32 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget>  with SingleTic
               const SizedBox(width: 20),
               Text(widget.movie.language),
               const SizedBox(width: 20),
-              InkWell(
-                onTap: () {
-                  _animationController.forward().then((value) =>_animationController.reverse());
-                  BlocProvider.of<MoviesBloc>(context).add(ToggleFavouriteEvent(movieDetails: widget.movie));
-                },
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder: (BuildContext context, Widget? child) {
-                    return CircleAvatar(
-                      radius: 15 * _animation.value,
-                      backgroundColor: Colors.grey[500]!.withOpacity(0.2),
-                      child: Icon(
-                        widget.movie.isFavourite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        size: 24 * _animation.value,
-                        color:  widget.movie.isFavourite
-                            ? Colors.redAccent
-                            : Colors.grey[300],
+              BlocProvider.value(
+                value: sl<GeneralBloc>(),
+                child: BlocBuilder<GeneralBloc,GeneralState>(
+                  builder: (BuildContext context, GeneralState state) {
+                    return  InkWell(
+                      onTap: () {
+                        _animationController.forward().then((value) =>_animationController.reverse());
+                        BlocProvider.of<GeneralBloc>(context).add(ToggleFavouriteEvent(widget.movie));
+                      },
+                      child: AnimatedBuilder(
+                        animation: _animation,
+                        builder: (BuildContext context, Widget? child) {
+                          return CircleAvatar(
+                            radius: 15 * _animation.value,
+                            backgroundColor: Colors.grey[500]!.withOpacity(0.2),
+                            child: Icon(
+                              widget.movie.isFavourite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 24 * _animation.value,
+                              color:  widget.movie.isFavourite
+                                  ? Colors.redAccent
+                                  : Colors.grey[300],
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
@@ -95,7 +103,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget>  with SingleTic
           ),
         ),
         Text(
-          widget.description,
+          widget.movie.overview,
           style: GoogleFonts.abel(
             fontSize: 18,
           ),

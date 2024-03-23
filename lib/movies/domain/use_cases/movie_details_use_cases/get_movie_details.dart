@@ -2,18 +2,18 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movie_app_with_clean_arch/core/error/failure/failure.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
-import 'package:movie_app_with_clean_arch/movies/domain/entity/movie_details.dart';
+import '../../entity/movie.dart';
 import 'movie_details_use_cases.dart';
 
 class GetMovieDetailsUseCase
-    extends BaseMovieDetailsUseCases<MovieDetails, Parameters> {
+    extends BaseMovieDetailsUseCases<Movie, Parameters> {
 
   final BaseMoviesRepository _baseMoviesRepository;
 
   GetMovieDetailsUseCase(this._baseMoviesRepository);
 
   @override
-  Future<Either<Failure, MovieDetails>> call({required Parameters parameter}) {
+  Future<Either<Failure, Movie>> call({required Parameters parameter}) {
     return _baseMoviesRepository.getMovieDetails(movieId: parameter.movieId!);
   }
 

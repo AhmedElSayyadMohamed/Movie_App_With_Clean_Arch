@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app_with_clean_arch/movies/presentation/controller/general_bloc/general_bloc.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/space_widgets/horizontal_space_widget.dart';
 import '../../../core/services_locator/services_locator.dart';
 import '../../../core/utiles/share_functions.dart';
 import '../../domain/entity/movie.dart';
-import '../controller/movie_bloc/bloc/movies_bloc.dart';
-import '../controller/movie_bloc/events/movies_events.dart';
-import '../controller/movie_bloc/states/movie_states.dart';
 import '../screens/movie_details/movie_details.dart';
 import 'movie_image_item.dart';
 import 'movie_rating_widget/movie_rating_wadgit.dart';
@@ -92,7 +89,7 @@ class _MovieCardState extends State<MovieCard>
                                 onTap: () {
                                   _animationController.forward().then((value) =>
                                       _animationController.reverse());
-                                  sl<MoviesBloc>()
+                                  sl<GeneralBloc>()
                                       .add(ToggleFavouriteEvent(widget.movie));
                                 },
                                 child: AnimatedBuilder(

@@ -13,6 +13,7 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
   final GetTrailerForAMovieUseCase _getTrailerForAMovie;
   final GetRecommendationsUseCase _getRecommendationForAMovie;
   final GetMovieCastUseCase _getMovieCastUseCase;
+
   MovieDetailsBloc(
     this._getMovieDetailsUseCas,
     this._getTrailerForAMovie,
@@ -25,66 +26,72 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
     on<GetMovieCastEvent>(_getMovieCast);
   }
   FutureOr<void> _getMovieDetailsFun(
-      GetMovieDetailsEvent event, Emitter<MovieDetailsStates> emit,
-      ) async {
+    GetMovieDetailsEvent event,
+    Emitter<MovieDetailsStates> emit,
+  ) async {
     var result =
         await _getMovieDetailsUseCas(parameter: Parameters(movieId: event.id));
     result.fold(
-      (l) => emit(
+        (l) => emit(
+              state.copyWith(
+                movieDetailState: RequestState.error,
+                errorMessage: l.errorMessage,
+              ),
+            ), (right) {
+      emit(
         state.copyWith(
-          movieDetailState: RequestState.error,
-          errorMessage: l.errorMessage,
-        ),
-      ),
-      (r) => emit(
-        state.copyWith(
-          movieDetails: r,
+          movieDetails: right,
           movieDetailState: RequestState.success,
         ),
-      ),
-    );
+      );
+    });
   }
 
   FutureOr<void> _getRecommendationsFun(
-      GetRecommendationsEvent event, Emitter<MovieDetailsStates> emit,
-      ) async {
+    GetRecommendationsEvent event,
+    Emitter<MovieDetailsStates> emit,
+  ) async {
     var result = await _getRecommendationForAMovie(
         parameter: Parameters(movieId: event.id));
     result.fold(
-        (l) => emit(
-              state.copyWith(
-                recommendationsMoviesState: RequestState.error,
-                recommendationsMoviesErrorMessage: l.errorMessage,
-              ),
-            ), (r) {
-      emit(state.copyWith(
-        recommendationsMovies: r,
-        recommendationsMoviesState: RequestState.success,
+      (l) => emit(
+        state.copyWith(
+          recommendationsMoviesState: RequestState.error,
+          recommendationsMoviesErrorMessage: l.errorMessage,
+        ),
       ),
-      );
-    },
+      (r) {
+        emit(
+          state.copyWith(
+            recommendationsMovies: r,
+            recommendationsMoviesState: RequestState.success,
+          ),
+        );
+      },
     );
   }
 
   FutureOr<void> _getTrailersMovie(
-      GetTrailersMovieEvent event, Emitter<MovieDetailsStates> emit,
-      ) async {
+    GetTrailersMovieEvent event,
+    Emitter<MovieDetailsStates> emit,
+  ) async {
     var result = await _getTrailerForAMovie(
         parameter: Parameters(movieId: event.movieId));
     result.fold(
-        (l) => emit(
-              state.copyWith(
-                trailerMovieState: RequestState.error,
-                trailerMovieErrorMessage: l.errorMessage,
-              ),
-            ), (r) {
-      emit(
+      (l) => emit(
         state.copyWith(
-          trailersMovie: r,
-          trailerMovieState: RequestState.success,
+          trailerMovieState: RequestState.error,
+          trailerMovieErrorMessage: l.errorMessage,
         ),
-      );
-    },
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            trailersMovie: r,
+            trailerMovieState: RequestState.success,
+          ),
+        );
+      },
     );
   }
 
@@ -92,16 +99,16 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsStates> {
     GetMovieCastEvent event,
     Emitter<MovieDetailsStates> emit,
   ) async {
-    var result =
-    await _getMovieCastUseCase(parameter: Parameters(movieId: event.movieId));
+    var result = await _getMovieCastUseCase(
+        parameter: Parameters(movieId: event.movieId));
     result.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           castActorsState: RequestState.error,
           castActorsErrorMessage: l.errorMessage,
         ),
       ),
-          (r) => emit(
+      (r) => emit(
         state.copyWith(
           castActors: r,
           castActorsState: RequestState.success,

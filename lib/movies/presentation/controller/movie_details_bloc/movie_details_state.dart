@@ -3,10 +3,9 @@ import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/trailer_movie.dart';
 import '../../../../core/constance/request_enum.dart';
 import '../../../domain/entity/actor.dart';
-import '../../../domain/entity/movie_details.dart';
 
 class MovieDetailsStates extends Equatable {
-  final MovieDetails? movieDetailsModel;
+  final Movie? movieDetailsModel;
   final RequestState movieDetailState;
   final String movieDetailsErrorMessage;
   final List<Movie> recommendationsMovies;
@@ -35,7 +34,7 @@ class MovieDetailsStates extends Equatable {
   });
 
   MovieDetailsStates copyWith({
-    MovieDetails? movieDetails,
+    Movie? movieDetails,
     RequestState? movieDetailState,
     String? errorMessage,
     List<Movie>? recommendationsMovies,
