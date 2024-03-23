@@ -10,7 +10,7 @@ class ApiConstance{
   static String getMovieDetails(int movieId) => '/movie/$movieId?api_key=$apiKey';
   static String getRecommendations(int movieId) => '/movie/$movieId/recommendations?api_key=$apiKey';
   static String getTrailerMovie(int movieId) => '/movie/$movieId/videos?api_key=$apiKey';
-  static getCastByMovieId(int id) => "$baseUrl/movie/$id/credits?$apiKey&language=en-US";
+  static String getCastByMovieId(int id) => "/movie/$id/credits?api_key=$apiKey";
 }
 class EndPoints{
   static String getNowPlaying(int page) =>'/movie/now_playing?api_key=${ApiConstance.apiKey}&page=$page';

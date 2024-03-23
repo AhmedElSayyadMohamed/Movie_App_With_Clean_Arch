@@ -78,7 +78,7 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
                           },
                           index: index,
                         );
-                      } else if (state.topRatedMovies.isNotEmpty) {
+                      } else  {
                         return const LoadingCircleIndicator();
                       }
                     },

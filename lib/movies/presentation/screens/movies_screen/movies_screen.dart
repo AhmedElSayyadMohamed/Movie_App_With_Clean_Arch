@@ -13,6 +13,7 @@ import '../../shared_widgets/popular_widgets/popular_movies_component.dart';
 import '../../shared_widgets/title_and_see_more_widget.dart';
 import '../../shared_widgets/top_rated_widgets/top_rated_movies_component.dart';
 import '../all_popular_movies_screen/all_popular_movies_screen.dart';
+import '../all_top_rated_movies_screen/all_top_rated_movies_screen.dart';
 import '../watch_later_screen/watch_later_screen.dart';
 
 class MoviesScreen extends StatelessWidget {
@@ -66,6 +67,6 @@ class MoviesScreen extends StatelessWidget {
       navigatePushTo(const AllPopularMoviesScreen(), context);
   }
   onTapSeeMoreTopRated(context){
-      navigatePushTo(const AllPopularMoviesScreen(), context);
+      navigatePushTo(const AllTopRatedMoviesScreen(), context);
   }
 }

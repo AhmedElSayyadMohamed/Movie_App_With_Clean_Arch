@@ -41,6 +41,7 @@ class _AllTopRatedMoviesScreenState extends State<AllTopRatedMoviesScreen> {
         value: sl<MoviesBloc>(),
         child: BlocBuilder<MoviesBloc, MoviesStates>(
             builder: (BuildContext context, state) {
+
               return Padding(
                 padding: const EdgeInsetsDirectional.only(
                   top: 20,

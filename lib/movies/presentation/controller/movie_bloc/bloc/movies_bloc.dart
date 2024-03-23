@@ -191,18 +191,20 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     Emitter<MoviesStates> emit,
   ) {
 
-    event.movie.isFavourite = !event.movie.isFavourite;
+    if(event.movie is Movie){
+    event.movie!.isFavourite = ! event.movie!.isFavourite;
+    event.movieDetails!.isFavourite =! event.movieDetails
     emit(
       state.copyWith(
         favouriteMovies: favouriteMovies,
         favouriteMovieState: RequestState.loading,
       ),
     );
-    if (event.movie.isFavourite == true) {
-      favouriteMovies.add(event.movie);
+    if (event.movie!.isFavourite == true) {
+      favouriteMovies.add(event.movie!);
 
     }
-    else if (event.movie.isFavourite == false) {
+    else if (event.movie!.isFavourite == false) {
       favouriteMovies.remove(event.movie);
     }
     emit(
@@ -211,5 +213,5 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         favouriteMovieState: RequestState.success,
       ),
     );
-  }
+  }}
 }

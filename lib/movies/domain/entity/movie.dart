@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class Movie extends Equatable {
   final int id;
-  bool isFavourite;
   final String? backdropPath;
   final String? posterPath;
   final String title;
   final String overview;
   final double voteAverage;
   final String releaseDate;
+  bool isFavourite;
 
   Movie({
     this.isFavourite = false,

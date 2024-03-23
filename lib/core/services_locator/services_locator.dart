@@ -3,6 +3,7 @@ import 'package:movie_app_with_clean_arch/movies/data/data_source/movies_remote_
 import 'package:movie_app_with_clean_arch/movies/data/repository/movies_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/base_repository/base_repository.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/get_trailer_movie/get_trailer_for_a_movie.dart';
+import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_details_use_cases/get_movie_cast.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_details_use_cases/get_movie_details.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_details_use_cases/get_recommendation_for_a_movie.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_cases/get_now_playing_movies.dart';
@@ -17,7 +18,7 @@ class ServicesLocator {
   static init() {
     // bloc
     sl.registerLazySingleton(() => MoviesBloc(sl(), sl(), sl()));
-    sl.registerFactory(() => MovieDetailsBloc(sl(),sl(),sl()));
+    sl.registerFactory(() => MovieDetailsBloc(sl(),sl(),sl(),sl()));
     //use cases
     sl.registerLazySingleton(() => GetNowPlayingMovies(sl()));
     sl.registerLazySingleton(() => GetPopularMovies(sl()));
@@ -25,6 +26,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => GetMovieDetailsUseCase(sl()));
     sl.registerLazySingleton(() => GetRecommendationsUseCase(sl()));
     sl.registerLazySingleton(() => GetTrailerForAMovieUseCase(sl()));
+    sl.registerLazySingleton(() => GetMovieCastUseCase(sl()));
     //Data Source
     sl.registerLazySingleton<BaseRemoteMovieDataSource>(
         () => RemoteMovieDataSource());

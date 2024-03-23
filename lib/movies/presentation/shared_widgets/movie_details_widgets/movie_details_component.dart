@@ -33,12 +33,7 @@ class MovieDetailsComponent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MovieDetailsWidget(
-                    title:state.movieDetailsModel!.title,
-                    description:  state.movieDetailsModel!.description,
-                    date:state.movieDetailsModel!.releaseDate,
-                    voteAverage: state.movieDetailsModel!.voteAverage,
-                    lang: state.movieDetailsModel!.language,
-                    onTap: () {  },
+                    movie: state.movieDetailsModel!,
                   ),
                   const SizedBox(
                       height: 10,

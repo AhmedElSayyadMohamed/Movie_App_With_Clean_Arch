@@ -4,6 +4,7 @@ import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_d
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_details_bloc/movie_details_event.dart';
 import '../../../../core/services_locator/services_locator.dart';
 import '../../../domain/entity/movie.dart';
+import '../../shared_widgets/movie_cast_component/movie_cast_component.dart';
 import '../../shared_widgets/movie_details_widgets/movie_details_component.dart';
 import '../../shared_widgets/movie_details_widgets/movie_trial_widget.dart';
 import '../../shared_widgets/movie_details_widgets/recommendation_movies_components.dart';
@@ -17,7 +18,8 @@ class MovieDetailsScreen extends StatelessWidget {
       create: (BuildContext context) => sl<MovieDetailsBloc>()
         ..add(GetTrailersMovieEvent(movie.id))
         ..add(GetMovieDetailsEvent(movie.id))
-        ..add(GetRecommendationsEvent(movie.id)),
+        ..add(GetRecommendationsEvent(movie.id))
+        ..add(GetMovieCastEvent(movie.id)),
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -31,6 +33,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     MovieDetailsComponent(),
+                    MovieCastComponent(),
                     RecommendationMoviesComponents(),
                   ],
                 ),
@@ -43,3 +46,5 @@ class MovieDetailsScreen extends StatelessWidget {
     );
   }
 }
+
+

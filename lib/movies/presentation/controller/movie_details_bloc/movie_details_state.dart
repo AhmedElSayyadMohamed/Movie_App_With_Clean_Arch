@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/movie.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/trailer_movie.dart';
 import '../../../../core/constance/request_enum.dart';
+import '../../../domain/entity/actor.dart';
 import '../../../domain/entity/movie_details.dart';
 
 class MovieDetailsStates extends Equatable {
@@ -14,9 +15,15 @@ class MovieDetailsStates extends Equatable {
   final List<TrailerMovie> trailersMovie;
   final RequestState trailerMovieState;
   final String trailerMovieErrorMessage;
+  final List<Actor> castActors;
+  final RequestState castActorsState;
+  final String castActorsErrorMessage;
 
   const MovieDetailsStates({
-    this.recommendationsMovies =const[],
+    this.castActors = const [],
+    this.castActorsState = RequestState.loading,
+    this.castActorsErrorMessage = '',
+    this.recommendationsMovies = const[],
     this.recommendationsMoviesState = RequestState.loading,
     this.recommendationsMoviesErrorMessage = '',
     this.trailersMovie = const[],
@@ -37,6 +44,9 @@ class MovieDetailsStates extends Equatable {
     List<TrailerMovie>? trailersMovie,
     RequestState? trailerMovieState,
     String? trailerMovieErrorMessage,
+    List<Actor>? castActors,
+    RequestState? castActorsState,
+    String? castActorsErrorMessage,
   }) =>
       MovieDetailsStates(
         movieDetailsModel: movieDetails ?? movieDetailsModel,
@@ -52,6 +62,10 @@ class MovieDetailsStates extends Equatable {
         trailerMovieState: trailerMovieState ?? this.trailerMovieState,
         trailerMovieErrorMessage: trailerMovieErrorMessage ??
             this.trailerMovieErrorMessage,
+        castActors: castActors ?? this.castActors,
+        castActorsState: castActorsState ?? this.castActorsState,
+        castActorsErrorMessage: castActorsErrorMessage ??
+            this.castActorsErrorMessage,
       );
 
   @override
@@ -66,5 +80,8 @@ class MovieDetailsStates extends Equatable {
         trailersMovie,
         trailerMovieState,
         trailerMovieErrorMessage,
+        castActors,
+        castActorsState,
+        castActorsErrorMessage,
       ];
 }

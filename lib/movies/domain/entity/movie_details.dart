@@ -13,8 +13,9 @@ class MovieDetails extends Equatable {
   final String language;
   final double voteAverage;
   final int voteCount;
-
-  const MovieDetails({
+  bool isFavourite;
+  MovieDetails( {
+    this.isFavourite = false,
     required this.id,
     required this.image,
     required this.title,
