@@ -59,7 +59,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
       nowPlayingMovies.addAll(movies);
       emit(
         state.copyWith(
-          nowPlayingMovies: nowPlayingMovies.toSet().toList(),
+          nowPlayingMovies: nowPlayingMovies,
           playingNowMovieState: RequestState.success,
         ),
       );
@@ -105,7 +105,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         popMovies.addAll(right);
         emit(
           state.copyWith(
-            popularMovies: popMovies.toSet().toList(),
+            popularMovies: popMovies,
             popularMovieState: RequestState.success,
           ),
         );
@@ -128,7 +128,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
 
     var result = await _getTopRatedMovies(
       numOfPage: Parameters(
-        page: event.page,
+        page:  state.topMoviePageNum,
       ),
     );
     emit(
@@ -149,7 +149,7 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
         topMovies.addAll(right);
         emit(
           state.copyWith(
-            topRatedMovies: topMovies.toSet().toList(),
+            topRatedMovies: topMovies,
             topRatedMovieState: RequestState.success,
           ),
         );
