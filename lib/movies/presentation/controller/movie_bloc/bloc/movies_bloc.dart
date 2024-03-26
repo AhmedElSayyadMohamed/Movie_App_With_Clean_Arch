@@ -9,6 +9,8 @@ import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_case
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/events/movies_events.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/movie_bloc/states/movie_states.dart';
 
+import '../../../../../core/network/check_internet_connection.dart';
+
 
 class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
   final GetNowPlayingMovies _getNowPlayingMovies;
@@ -168,5 +170,15 @@ class MoviesBloc extends Bloc<MoviesEvents, MoviesStates> {
     popMovies.shuffle();
     topMovies.shuffle();
     nowPlayingMovies.shuffle();
+    checkConnection();
+  }
+  final ConnectivityService _connectivityService = ConnectivityService();
+
+  bool isConnected = true;
+  Future<void> checkConnection() async {
+    isConnected = await _connectivityService.isConnected();
+    emit(state.copyWith(
+      isConnected: isConnected,
+    ));
   }
 }

@@ -45,7 +45,7 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
 
         switch (state.trailerMovieState) {
           case RequestState.loading:
-            return const LoadingCircleIndicator(height: 210,);
+            return const LoadingCircleIndicator(height: 200,);
           case RequestState.success:
             {
               if (state.trailersMovie.isNotEmpty) {
@@ -55,7 +55,7 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
                 controller: _controller,
                 aspectRatio: 16 / 9,
                 builder: (context,player)=> SizedBox(
-                  height: 240,
+                  height: 200,
                   width: double.infinity,
                   child: YoutubePlayer(
                     controller: _controller,

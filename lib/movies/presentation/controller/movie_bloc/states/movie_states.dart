@@ -26,9 +26,10 @@ class MoviesStates extends Equatable {
   int topMoviePageNum;
 
   ////////////////////
+  bool isConnected;
 
-
-    MoviesStates({
+  MoviesStates({
+    this.isConnected = true,
     this.popularMovies = const [],
     this.popularMovieState = RequestState.loading,
     this.topPaginationState = RequestState.loading,
@@ -65,22 +66,24 @@ class MoviesStates extends Equatable {
     int? toggleBottomNavBarItem,
     String? topRatedErrorMessage,
     List<Movie>? favouriteMovies,
+    bool? isConnected,
   }) {
     return MoviesStates(
+      isConnected: isConnected ?? this.isConnected,
       nowPlayingMovies: nowPlayingMovies ?? this.nowPlayingMovies,
       playingNowMovieState: playingNowMovieState ?? this.playingNowMovieState,
       playingNowErrorMessage:
-          playingNowErrorMessage ?? this.playingNowErrorMessage,
+      playingNowErrorMessage ?? this.playingNowErrorMessage,
       popularMovies: popularMovies ?? this.popularMovies,
       popularMovieState: popularMovieState ?? this.popularMovieState,
       topPaginationState: topPaginationState ?? this.topPaginationState,
       popularPaginationState:
-          popularPaginationState ?? this.popularPaginationState,
+      popularPaginationState ?? this.popularPaginationState,
       playingNowPaginationState:
-          playingNowPaginationState ?? this.playingNowPaginationState,
+      playingNowPaginationState ?? this.playingNowPaginationState,
       popularErrorMessage: popularErrorMessage ?? this.playingNowErrorMessage,
       nowPlayingMoviePageNum:
-          nowPlayingMoviePageNum ?? this.nowPlayingMoviePageNum,
+      nowPlayingMoviePageNum ?? this.nowPlayingMoviePageNum,
       topMoviePageNum: topMoviePageNum ?? this.topMoviePageNum,
       popularMoviePageNum: popularMoviePageNum ?? this.popularMoviePageNum,
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
@@ -90,7 +93,8 @@ class MoviesStates extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object> get props =>
+      [
         nowPlayingMovies,
         playingNowMovieState,
         playingNowPaginationState,

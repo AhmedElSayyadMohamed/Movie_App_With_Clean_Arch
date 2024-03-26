@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_with_clean_arch/movies/data/data_source/local/hive_database.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/general_bloc/general_bloc.dart';
+import '../../../../core/services_locator/services_locator.dart';
 import '../../../../core/utiles/string_manager/string_manager.dart';
 import '../../shared_widgets/all_movies_card.dart';
 
@@ -13,6 +15,8 @@ class WatchLaterScreen extends StatelessWidget {
     return BlocBuilder<GeneralBloc, GeneralState>(
       builder: (BuildContext context, state) {
         var bloc = GeneralBloc.get(context);
+       // var list =  sl<HiveDataBase>().getFavouriteBox(boxKey: 'favouriteMovies');
+       //  print(list);
         return Padding(
           padding: const EdgeInsetsDirectional.only(
             top: 20,

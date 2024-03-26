@@ -38,16 +38,13 @@ class _PopularMoviesComponentState extends State<PopularMoviesComponent> {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('PopularMoviesComponent build');
-    }
+
+
     return BlocBuilder<MoviesBloc, MoviesStates>(
         buildWhen: (previous, current) => ((previous.popularMovieState != current.popularMovieState) ||
                 (previous.popularPaginationState != current.popularPaginationState)),
         builder: (context, state) {
-          if (kDebugMode) {
-            print('PopularMoviesComponent BlocBuilder');
-          }
+
           switch (state.popularMovieState) {
             case RequestState.loading:
               return const LoadingCircleIndicator();
