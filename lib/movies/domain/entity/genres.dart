@@ -1,8 +1,13 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+@HiveType(typeId: 1)
 class Genres extends Equatable {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
 
   const Genres({

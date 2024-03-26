@@ -42,6 +42,7 @@ class _MovieCardState extends State<MovieCard>
   @override
   Widget build(BuildContext context) {
     return Card(
+      key:Key(widget.movie.id.toString()),
       elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),

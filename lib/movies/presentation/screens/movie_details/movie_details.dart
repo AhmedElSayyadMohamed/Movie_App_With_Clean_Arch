@@ -23,25 +23,27 @@ class MovieDetailsScreen extends StatelessWidget {
         ..add(GetRecommendationsEvent(movie.id))
         ..add(GetMovieCastEvent(movie.id)),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MovieTrialWidget(
-                movie: movie,
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.only(start: 12.0, end: 12, top: 15),
-                child: Column(
-                  children: [
-                    MovieDetailsComponent(movie: movie,),
-                    const MovieCastComponent(),
-                    const RecommendationMoviesComponents(),
-                  ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MovieTrialWidget(
+                  movie: movie,
                 ),
-              ),
-              const SizedBox(height: 10,)
-            ],
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 12.0, end: 12, top: 15),
+                  child: Column(
+                    children: [
+                      MovieDetailsComponent(movie: movie,),
+                      const MovieCastComponent(),
+                      const RecommendationMoviesComponents(),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,)
+              ],
+            ),
           ),
         ),
       ),

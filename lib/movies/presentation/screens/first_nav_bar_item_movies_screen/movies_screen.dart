@@ -27,7 +27,6 @@ class MoviesScreen extends StatelessWidget {
           child: BlocBuilder<MoviesBloc, MoviesStates>(
             builder: (BuildContext context, MoviesStates state) {
               var bloc = MoviesBloc.get(context);
-
               if (bloc.topMovies.isNotEmpty ||
                   bloc.nowPlayingMovies.isNotEmpty ||
                   bloc.popMovies.isNotEmpty) {

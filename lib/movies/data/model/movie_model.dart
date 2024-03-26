@@ -4,13 +4,13 @@ import 'movie_details_model.dart';
 
 class MovieModel extends Movie {
    MovieModel({
-    required super.id,
-    required super.backdropPath,
-    required super.title,
-    required super.overview,
-    required super.voteAverage,
-    required super.releaseDate,
-    required super.posterPath,
+     required super.id,
+     required super.backdropPath,
+     required super.title,
+     required super.overview,
+     required super.voteAverage,
+     required super.releaseDate,
+     required super.posterPath,
      super.isFavourite,
      required super.genres,
      required super.language,

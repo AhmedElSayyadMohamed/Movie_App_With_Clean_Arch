@@ -17,17 +17,13 @@ class NowPlayingMoviesComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('NowPlayingMoviesComponent build');
-    }
+
     return BlocBuilder<MoviesBloc, MoviesStates>(
       buildWhen: (previous, current)=>
       (previous.playingNowMovieState != current.playingNowMovieState)||
           (previous.playingNowPaginationState != current.playingNowPaginationState),
       builder: (BuildContext context, MoviesStates state) {
-        if (kDebugMode) {
-          print('NowPlayingMoviesComponent BlocBuilder');
-        }
+
           switch (state.playingNowMovieState) {
             case RequestState.loading:
               return const LoadingCircleIndicator(height: 325,);
@@ -45,8 +41,7 @@ class NowPlayingMoviesComponent extends StatelessWidget {
                   items: state.nowPlayingMovies
                       .map(
                         (movie) => NowPlayingMovieComponent(
-                          image: movie.backdropPath!,
-                          movieName: movie.title,
+                          movie: movie,
                           onTap: () {
                             navigatePushTo(
                                 MovieDetailsScreen(movie: movie), context);

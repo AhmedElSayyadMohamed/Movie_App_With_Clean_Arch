@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:movie_app_with_clean_arch/movies/data/data_source/local/hive_database.dart';
 
+import '../../../../core/network/check_internet_connection.dart';
+import '../../../../core/services_locator/services_locator.dart';
 import '../../../domain/entity/movie.dart';
 
 part 'general_event.dart';
@@ -38,6 +42,7 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
 
     if (event.movie.isFavourite == true) {
       favouriteMovies.add(event.movie);
+      sl<HiveDataBase>().saveMovies(movies: favouriteMovies);
       emit(AddMovieToFavourite());
     } else {
       favouriteMovies.remove(event.movie);
@@ -46,5 +51,14 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
     if (kDebugMode) {
       print('fav : ${favouriteMovies.length}');
     }
+  }
+
+  final ConnectivityService _connectivityService = ConnectivityService();
+
+  bool isConnected = true;
+  Future<void> checkConnection() async {
+    isConnected = await _connectivityService.isConnected();
+    print(isConnected);
+    emit(CheckInternetConnection());
   }
 }

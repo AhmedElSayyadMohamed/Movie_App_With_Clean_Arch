@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/entity/movie.dart';
 import '../image_with_shader.dart';
 
 class NowPlayingMovieComponent extends StatelessWidget {
 
-  final String image;
-  final String movieName;
+  final Movie movie;
   final Function()? onTap;
   const NowPlayingMovieComponent({
     super.key,
-    required this.image,
-    required this.movieName,
+    required this.movie,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: Key(movie.id.toString()),
       onTap: onTap ,
       child: Stack(
         children: [
           ImageWithShader(
-              image: image,
+              image: movie.backdropPath.toString(),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -55,7 +55,7 @@ class NowPlayingMovieComponent extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsetsDirectional.only(bottom: 16),
                   child: Text(
-                    movieName,
+                    movie.title,
                     textAlign: TextAlign.center,
                     style:const TextStyle(
                       color: Colors.white,

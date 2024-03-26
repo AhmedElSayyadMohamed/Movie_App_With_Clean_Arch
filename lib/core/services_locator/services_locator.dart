@@ -10,6 +10,7 @@ import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_case
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_cases/get_popular_movies.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/use_cases/movie_use_cases/get_top_rated_movies.dart';
 import 'package:movie_app_with_clean_arch/movies/presentation/controller/general_bloc/general_bloc.dart';
+import '../../movies/data/data_source/local/hive_database.dart';
 import '../../movies/presentation/controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../movies/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
 
@@ -17,6 +18,9 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   static init() {
+    //hive database
+    sl.registerLazySingleton(() => HiveDataBase());
+
     // bloc
     sl.registerLazySingleton(() => GeneralBloc());
     sl.registerLazySingleton(() => MoviesBloc(sl(), sl(), sl()));

@@ -38,9 +38,6 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('PopularMoviesComponent build');
-    }
 
     return BlocBuilder<MoviesBloc, MoviesStates>(
       buildWhen: (previous, current) =>
@@ -49,9 +46,6 @@ class _TopRatedMoviesComponentState extends State<TopRatedMoviesComponent> {
       builder: (BuildContext context, state) {
         _scrollController.addListener(_onScroll);
 
-        if (kDebugMode) {
-          print('PopularMoviesComponent BlocBuilder');
-        }
           switch (state.topRatedMovieState) {
             case RequestState.loading:
               return const LoadingCircleIndicator();

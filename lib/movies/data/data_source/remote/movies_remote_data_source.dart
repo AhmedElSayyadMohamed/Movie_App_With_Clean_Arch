@@ -4,7 +4,7 @@ import 'package:movie_app_with_clean_arch/core/error/server_error_model.dart';
 import 'package:movie_app_with_clean_arch/core/network/server_error_exception.dart';
 import 'package:movie_app_with_clean_arch/movies/data/model/actor_model.dart';
 import 'package:movie_app_with_clean_arch/movies/data/model/movie_model.dart';
-import 'package:movie_app_with_clean_arch/movies/data/model/trialer_movie_model.dart';
+import 'package:movie_app_with_clean_arch/movies/data/model/trailer_movie_model.dart';
 
 
 abstract class BaseRemoteMovieDataSource {

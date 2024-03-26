@@ -16,3 +16,4 @@ class ToggleFavourite extends GeneralState{}
 class AddMovieToFavourite extends GeneralState{}
 
 class RemoveMovieFromFavourite extends GeneralState{}
+class CheckInternetConnection extends GeneralState{}

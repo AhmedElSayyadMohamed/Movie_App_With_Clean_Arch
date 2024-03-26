@@ -33,6 +33,7 @@ class LayoutView extends StatelessWidget {
       child: BlocBuilder<GeneralBloc, GeneralState>(
         builder: (BuildContext context, GeneralState state) {
           var bloc = GeneralBloc.get(context);
+
           return Scaffold(
             body: SafeArea(
               child: screens[bloc.selectedBottomNavIndex],

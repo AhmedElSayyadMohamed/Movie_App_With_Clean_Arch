@@ -6,7 +6,11 @@ import 'package:shimmer/shimmer.dart';
 class MovieImageItem extends StatelessWidget{
   final String image;
   final double bottomBorder ;
-  const MovieImageItem({super.key, required this.image, this.bottomBorder = 0,});
+  const MovieImageItem({
+    super.key,
+    required this.image,
+    this.bottomBorder = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,10 @@ class MovieImageItem extends StatelessWidget{
             ),
           ),
         ),
-        errorWidget: (context, url, error) =>Image.network('https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg',fit: BoxFit.cover,),
+        errorWidget: (context, url, error) =>Image.network(
+          'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

@@ -46,6 +46,7 @@ class _MovieWidgetState extends State<MovieWidget>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      key:Key(widget.movie.id.toString()),
       width: 140,
       child: Stack(
         children: [
