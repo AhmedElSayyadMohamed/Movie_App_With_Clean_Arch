@@ -27,5 +27,5 @@
 
 🎬 Movie Details : Movie details , including trailers and cast information and Recommendation Movies in the Same Topic.
 
-<img src="https://drive.google.com/file/d/1YRSnmOD7kF6A53JbQOkzlM0VMgylrsG5/view?usp=drive_link" alt="Watch Movie Later" width="500" height="600">
+<img src="https://drive.google.com/file/d/1YRSnmOD7kF6A53JbQOkzlM0VMgylrsG5/view?usp=drive_link" width="500" height="600">
 
