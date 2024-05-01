@@ -17,7 +17,7 @@
 
 6- Clean Architecture 
 
-Key Features to Explore:
+<h3>Key Features to Explore</h3>:
 
 🎥 **Now Playing ** : Stay updated with the latest releases in the movie industry.
 
