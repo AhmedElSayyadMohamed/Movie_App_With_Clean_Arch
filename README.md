@@ -5,9 +5,7 @@
 
 <h3>Project Highlights :</h3>
 
-1-Bloc State Management: Mastering state management with the Bloc pattern for optimal app performance![WhatsApp Image 2024-05-01 at 3 18 21 PM (1)](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/e082c4ef-d167-435c-b1d3-7bc51724de5d)
-![WhatsApp Image 2024-05-01 at 3 18 20 PM](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/563db85e-4205-41fb-b4a4-d1e0581b45a5)
-.
+1-Bloc State Management: Mastering state management with the Bloc pattern for optimal app performance.
 
 2- Dependency Injection : Implementing dependency injection for efficient data handling .
 
@@ -20,10 +18,6 @@
 6- Clean Architecture 
 
 <h3>Key Features to Explore :</h3>
-![WhatsApp Image 2024-05-01 at 3 18 22 PM](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/de9923fe-d81b-4c77-abcf-ca4971693e37)
-![WhatsApp Image 2024-05-01 at 3 18 22 PM (1)](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/6da47d32-02ff-4a57-b4b8-691cf2bd0e00)
-![WhatsApp Image 2024-05-01 at 3 18 21 PM](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/abc14798-d1f6-4b3c-8d00-d1ac6e9f90a2)
-![WhatsApp Image 2024-05-01 at 3 18 21 PM (2)](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/933188af-9c23-4638-8ce8-f8e2eeea119c)
 
 🎥 Now Playing  : Stay updated with the latest releases in the movie industry.
 
@@ -33,6 +27,12 @@
 
 🎬 Movie Details : Movie details , including trailers and cast information and Recommendation Movies in the Same Topic.
 
-<img src="https://drive.google.com/drive/u/1/folders/1tUEVELWdzwBRMdLD1ZHUcwfMI3ZZFNJJ" width="280">
+MovieApp Screens :
 
 
+![movieDetails2](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/4456529c-1db5-464e-9229-c2353e8a2819)
+![seeMore](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/b32c2024-080c-416c-8c38-d8ffec43dce6)
+![home](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/01a22d78-5185-43b9-95d0-674b6bb6e571)
+![movieDetails](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/4302b42a-43ed-482e-b0d7-03cb62a8b5ed)
+![movieDetailsScreen](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/5a47e2dd-2532-4ab9-be57-c696aafbeff5)
+![watchlaterScreen](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/2a42f1ec-d825-4ab7-ab47-17caa8d628f4)
