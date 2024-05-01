@@ -27,8 +27,9 @@
 
 🎬 Movie Details : Movie details , including trailers and cast information and Recommendation Movies in the Same Topic.
 
-MovieApp Screens :
+<h3>PMovieApp Screens :</h3>
 
+<img src="https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/4456529c-1db5-464e-9229-c2353e8a2819" width="280">
 
 ![movieDetails2](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/4456529c-1db5-464e-9229-c2353e8a2819)
 ![seeMore](https://github.com/AhmedElSayyadMohamed/movie_app_with_arch/assets/74414358/b32c2024-080c-416c-8c38-d8ffec43dce6)
