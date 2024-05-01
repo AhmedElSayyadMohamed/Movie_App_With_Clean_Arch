@@ -19,11 +19,13 @@
 
 <h3>Key Features to Explore :</h3>
 
-🎥 **Now Playing ** : Stay updated with the latest releases in the movie industry.
+🎥 Now Playing  : Stay updated with the latest releases in the movie industry.
 
-🔥 **Popular Now:** Discover trending movies that everyone's talking about.
-*/
+🔥 Popular Now : Discover trending movies that everyone's talking about.
 
-🌟 **Top Rated:** Explore top-rated movies 
+🌟 Top Rated : Explore top-rated movies 
 
-🎬 **Movie Details:** Movie details, including trailers and cast information.
+🎬 Movie Details : Movie details , including trailers and cast information and Recommendation Movies in the Same Topic.
+
+<img src="https://drive.google.com/file/d/1YRSnmOD7kF6A53JbQOkzlM0VMgylrsG5/view?usp=drive_link" alt="Watch Movie Later" width="500" height="600">
+
