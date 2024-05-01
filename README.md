@@ -3,7 +3,7 @@
 🚀 Exciting Announcement! 🎬 Introducing our latest Flutter movie app project 💻
 
 
-<h3>Project Highlights</h3>
+<h3>Project Highlights :</h3>
 
 1-Bloc State Management: Mastering state management with the Bloc pattern for optimal app performance.
 
@@ -17,7 +17,7 @@
 
 6- Clean Architecture 
 
-<h3>Key Features to Explore</h3>:
+<h3>Key Features to Explore :</h3>
 
 🎥 **Now Playing ** : Stay updated with the latest releases in the movie industry.
 
