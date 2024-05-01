@@ -1,10 +1,11 @@
 # movie_app_with_clean_arch
 
 🚀 Exciting Announcement! 🎬 Introducing our latest Flutter movie app project 💻
-/*
-Project Highlights: 
 
-1- Bloc State Management: Mastering state management with the Bloc pattern for optimal app performance.
+
+<h1>Project Highlights</h1>
+
+1-<h2>Bloc State Management</h2>: Mastering state management with the Bloc pattern for optimal app performance.
 
 2- Dependency Injection : Implementing dependency injection for efficient data handling .
 
