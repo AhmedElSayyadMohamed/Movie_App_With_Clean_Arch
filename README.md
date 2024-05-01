@@ -30,4 +30,3 @@
 <img src="https://drive.google.com/drive/u/1/folders/1tUEVELWdzwBRMdLD1ZHUcwfMI3ZZFNJJ" width="280">
 
 
-<img src="https://user-images.githubusercontent.com/72945669/132385685-7281f254-aa6c-466b-a835-c0f935398b9b.png" width="280">
