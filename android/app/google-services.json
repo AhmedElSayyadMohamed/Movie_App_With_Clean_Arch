@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "59935847939",
+    "project_id": "filmfy-609c1",
+    "storage_bucket": "filmfy-609c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59935847939:android:8522891e81641c6ffbc036",
+        "android_client_info": {
+          "package_name": "com.example.movie_app_with_clean_arch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCct_yq7g3ftqmA9sMr_m0JdJfoMULjqSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
