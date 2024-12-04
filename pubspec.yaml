@@ -6,34 +6,35 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.1.1 <4.0.0'
 
+
 dependencies:
-  animate_do: null
-  cached_network_image: null
-  carousel_slider: null
-  cupertino_icons: ^1.0.2
-  dartz: null
-  dio: null
-  equatable: ^2.0.5
-  firebase_core: ^3.6.0
   flutter:
     sdk: flutter
-  flutter_bloc: null
-  flutter_native_splash: null
-  get_it: null
-  google_fonts: ^4.0.5
-  hive: ^2.2.3
-  hive_flutter: null
+
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
+  dio:
+  dartz:
+  flutter_bloc:
+  get_it:
+  shimmer:
+  animate_do:
+  cached_network_image:
+  carousel_slider:
   intl: ^0.19.0
-  lottie: null
-  path_provider: null
-  shimmer: null
+  lottie:
+  google_fonts: ^4.0.5
   youtube_player_iframe: ^4.0.4
+  hive: ^2.2.3
+  hive_flutter:
+  path_provider:
+  flutter_native_splash:
 
 dev_dependencies:
-
-  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^3.0.1
 
 flutter:
 
