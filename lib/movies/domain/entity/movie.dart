@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:movie_app_with_clean_arch/movies/domain/entity/genres.dart';
 

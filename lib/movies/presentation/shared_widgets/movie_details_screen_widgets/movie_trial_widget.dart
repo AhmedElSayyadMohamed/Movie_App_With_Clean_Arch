@@ -34,14 +34,14 @@ class _MovieTrialWidgetState extends State<MovieTrialWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('MovieTrialWidget build');
-    }
+    // if (kDebugMode) {
+    //   print('MovieTrialWidget build');
+    // }
     return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       builder: (BuildContext context, state) {
-        if (kDebugMode) {
-          print('MovieTrialWidget BlocBuilder');
-        }
+        // if (kDebugMode) {
+        //   print('MovieTrialWidget BlocBuilder');
+        // }
 
         switch (state.trailerMovieState) {
           case RequestState.loading:

@@ -6,6 +6,8 @@ import 'package:movie_app_with_clean_arch/movies/presentation/shared_widgets/mov
 import '../../../../core/services_locator/services_locator.dart';
 import '../../../../core/utiles/share_functions.dart';
 import '../../../domain/entity/movie.dart';
+import '../../controller/watch_later_cubit/watch_later_cubit.dart';
+import '../../controller/watch_later_cubit/watch_later_states.dart';
 import '../movie_image_item.dart';
 
 class MovieWidget extends StatefulWidget {
@@ -108,15 +110,15 @@ class _MovieWidgetState extends State<MovieWidget>
             bottom: 60,
             right: 6,
             child: BlocProvider.value(
-              value: sl<GeneralBloc>(),
-              child: BlocBuilder<GeneralBloc, GeneralState>(
+              value: sl<WatchLaterMoviesCubit>(),
+              child: BlocBuilder<WatchLaterMoviesCubit, WatchLaterMoviesStates>(
                 builder: (context, state) {
                   return InkWell(
                     onTap: () {
                       _animationController.forward().then((value) =>
                           _animationController.reverse());
-                      BlocProvider.of<GeneralBloc>(context).add(
-                          ToggleFavouriteEvent(widget.movie));
+                      sl<WatchLaterMoviesCubit>().toggleFavourite(widget.movie);
+
                     },
                     child: AnimatedBuilder(
                       animation: _animation,

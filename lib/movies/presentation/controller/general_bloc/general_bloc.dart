@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:movie_app_with_clean_arch/movies/data/data_source/local/hive_database.dart';
 
 import '../../../../core/network/check_internet_connection.dart';
@@ -14,7 +13,7 @@ part 'general_state.dart';
 
 class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
   int selectedBottomNavIndex = 0;
-  List<Movie> favouriteMovies = [];
+  // List<Movie> favouriteMovies = [];
 
   static GeneralBloc get(context) => BlocProvider.of(context);
 
@@ -22,7 +21,7 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
 
   GeneralBloc() : super(GeneralInitial()) {
     on<ToggleBottomNavBarItemEvent>(_onBottomNavItemTapped);
-    on<ToggleFavouriteEvent>(_toggleFavourite);
+    // on<ToggleFavouriteEvent>(_toggleFavourite);
   }
 
   FutureOr<void> _onBottomNavItemTapped(
@@ -32,33 +31,32 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
     selectedBottomNavIndex = event.index;
     emit(ToggleBottomNavBarItem(selectedBottomNavIndex));
   }
+  //
+  // FutureOr<void> _toggleFavourite(
+  //   ToggleFavouriteEvent event,
+  //   Emitter<GeneralState> emit,
+  // ) {
+  //   event.movie.isFavourite = !event.movie.isFavourite;
+  //   emit(ToggleFavourite());
+  //
+  //   if (event.movie.isFavourite == true) {
+  //     sl<HiveDataBase>().saveMovie(movie: event.movie);
+  //     emit(AddMovieToFavourite());
+  //   } else if (event.movie.isFavourite == false){
+  //     sl<HiveDataBase>().removeMovie(movie: event.movie);
+  //
+  //     emit(RemoveMovieFromFavourite());
+  //   }
+  //
+  // }
 
-  FutureOr<void> _toggleFavourite(
-    ToggleFavouriteEvent event,
-    Emitter<GeneralState> emit,
-  ) {
-    event.movie.isFavourite = !event.movie.isFavourite;
-    emit(ToggleFavourite());
-
-    if (event.movie.isFavourite == true) {
-      favouriteMovies.add(event.movie);
-      sl<HiveDataBase>().saveMovies(movies: favouriteMovies);
-      emit(AddMovieToFavourite());
-    } else {
-      favouriteMovies.remove(event.movie);
-      emit(RemoveMovieFromFavourite());
-    }
-    if (kDebugMode) {
-      print('fav : ${favouriteMovies.length}');
-    }
-  }
 
   final ConnectivityService _connectivityService = ConnectivityService();
 
   bool isConnected = true;
   Future<void> checkConnection() async {
     isConnected = await _connectivityService.isConnected();
-    print(isConnected);
+    // print(isConnected);
     emit(CheckInternetConnection());
   }
 }

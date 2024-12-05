@@ -13,6 +13,7 @@ import 'package:movie_app_with_clean_arch/movies/presentation/controller/general
 import '../../movies/data/data_source/local/hive_database.dart';
 import '../../movies/presentation/controller/movie_bloc/bloc/movies_bloc.dart';
 import '../../movies/presentation/controller/movie_details_bloc/movie_details_bloc.dart';
+import '../../movies/presentation/controller/watch_later_cubit/watch_later_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -23,6 +24,7 @@ class ServicesLocator {
 
     // bloc
     sl.registerLazySingleton(() => GeneralBloc());
+    sl.registerLazySingleton(() => WatchLaterMoviesCubit());
     sl.registerLazySingleton(() => MoviesBloc(sl(), sl(), sl()));
     sl.registerFactory(() => MovieDetailsBloc(sl(),sl(),sl(),sl()));
     //use cases

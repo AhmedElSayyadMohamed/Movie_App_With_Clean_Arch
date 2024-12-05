@@ -1,0 +1,8 @@
+abstract class WatchLaterMoviesStates{}
+
+class GetFavMoviesFromDatabaseLoadingState extends WatchLaterMoviesStates{}
+class GetFavMoviesFromDatabaseSuccessState extends WatchLaterMoviesStates{}
+class GetFavMoviesFromDatabaseErrorState extends WatchLaterMoviesStates{}
+class ToggleFavouriteState extends WatchLaterMoviesStates{}
+class AddMovieToFavouriteState extends WatchLaterMoviesStates{}
+class RemoveMovieFromFavouriteState extends WatchLaterMoviesStates{}

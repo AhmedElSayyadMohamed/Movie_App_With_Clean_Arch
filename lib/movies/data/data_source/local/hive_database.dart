@@ -1,41 +1,55 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'package:movie_app_with_clean_arch/main.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import '../../../domain/entity/movie.dart';
 
-class HiveDataBase{
+const String watchLaterBox = 'watchLaterBox';
 
-  Future<void> initHive() async {
-
+class HiveDataBase {
+  // HiveDataBase._();
+  Future<void> init() async {
     // Get application documents directory
-    final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+    final appDocumentDir =
+        await path_provider.getApplicationDocumentsDirectory();
 
     // Initialize Hive
     Hive.init(appDocumentDir.path);
 
     Hive.registerAdapter(MovieAdapter());
     Hive.registerAdapter(GenresAdapter());
-    openMovieBox(boxKey: 'favouriteMovies');
   }
 
-  Future<void> openMovieBox({required String boxKey}) async {
-     await Hive.openBox<List<Movie>>(boxKey);
+  void addMovieToDB({required Movie movie}) async {
+    var favMovies = Hive.box<Movie>(watchLaterBox);
+
+    favMovies.put(movie.id, movie)
+        .then(
+          (value) => debugPrint('movie ${movie.title} added to database'),
+        )
+        .catchError((error) {
+      debugPrint('error when try to add movie ${movie.title} to database');
+    });
   }
 
-  void saveMovies({required List<Movie> movies}) async{
-    var favMovies = await Hive.openBox<List<Movie>>('favouriteMovies');
 
-    // Get the Hive box// Clear existing objects
-    // favMovies.clear();
-    // Save each object in the list to the box
-    favMovies.add(movies).then((value) => debugPrint('movie ${movies.length} added to database'));
-   var list = getFavouriteBox() ;
-   print(list);
+
+  Future<void> removeMovieFromDatabase({required Movie movie}) async {
+    var favMovies = Hive.box<Movie>(watchLaterBox);
+
+    favMovies
+        .delete(movie.id)
+        .then(
+          (value) => debugPrint('movie ${movie.title} removed from database'),
+    )
+        .catchError((error) {
+      debugPrint('error when try to add movie ${movie.title} to database');
+    });
   }
 
-  Future<List<Movie>?> getFavouriteBox() async {
-    Box<List<Movie>> box = await Hive.openBox<List<Movie>>('favouriteMovies');
-    print(box.length);
-    return box.get('favouriteMovies');
+  Future<List<Movie>> getFavMoviesFromDB() async {
+    var favMovies = Hive.box<Movie>(watchLaterBox);
+
+    return favMovies.values.toList();
   }
 }

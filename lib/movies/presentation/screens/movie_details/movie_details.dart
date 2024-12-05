@@ -9,8 +9,6 @@ import '../../shared_widgets/movie_details_screen_widgets/movie_details_componen
 import '../../shared_widgets/movie_details_screen_widgets/movie_trial_widget.dart';
 import '../../shared_widgets/movie_details_screen_widgets/recommendation_movies_components.dart';
 
-
-
 class MovieDetailsScreen extends StatelessWidget {
   final Movie movie;
   const MovieDetailsScreen({super.key, required this.movie});
@@ -32,16 +30,24 @@ class MovieDetailsScreen extends StatelessWidget {
                   movie: movie,
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 12.0, end: 12, top: 15),
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 12.0,
+                    end: 12,
+                    top: 15,
+                  ),
                   child: Column(
                     children: [
-                      MovieDetailsComponent(movie: movie,),
+                      MovieDetailsComponent(
+                        movie: movie,
+                      ),
                       const MovieCastComponent(),
                       const RecommendationMoviesComponents(),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10,)
+                const SizedBox(
+                  height: 10,
+                )
               ],
             ),
           ),
@@ -50,5 +56,3 @@ class MovieDetailsScreen extends StatelessWidget {
     );
   }
 }
-
-

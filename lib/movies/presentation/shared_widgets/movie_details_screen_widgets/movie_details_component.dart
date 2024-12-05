@@ -17,17 +17,10 @@ class MovieDetailsComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print('MovieDetailsComponent build ');
-    }
-    return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
 
+    return BlocBuilder<MovieDetailsBloc, MovieDetailsStates>(
       buildWhen: (prev,current)=> prev.movieDetailState != current.movieDetailState,
       builder: (BuildContext context, state) {
-        if (kDebugMode) {
-          print('MovieDetailsComponent MovieDetailsBloc ');
-        }
-
         switch (state.movieDetailState) {
           case RequestState.loading:
             return const LoadingCircleIndicator();

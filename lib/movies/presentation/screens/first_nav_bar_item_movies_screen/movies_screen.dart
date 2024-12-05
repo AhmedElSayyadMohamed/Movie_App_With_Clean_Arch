@@ -20,41 +20,47 @@ class MoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator.adaptive(
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: BlocBuilder<MoviesBloc, MoviesStates>(
-            builder: (BuildContext context, MoviesStates state) {
-              var bloc = MoviesBloc.get(context);
-              if (bloc.topMovies.isNotEmpty ||
-                  bloc.nowPlayingMovies.isNotEmpty ||
-                  bloc.popMovies.isNotEmpty) {
-                return Column(
-                  children: [
-                    const NowPlayingMoviesComponent(),
-                    TitleAndSeeMoreWidget(
-                      title: StringManager.popular,
-                      onTap:()=>onTapSeeMorePopular(context),
-                    ), // static
-                    const PopularMoviesComponent(), // rebuild
-                    TitleAndSeeMoreWidget(
-                      title: StringManager.topRated,
-                      onTap: ()=>onTapSeeMoreTopRated(context) ,
-                    ), // static
-                    const TopRatedMoviesComponent(), // rebuild// rebuild
-                    const VerticalSpace(
-                      pixels: 15,
-                    ),
-                  ],
-                );
-              } else {
-                return const LottieLoadingIndicator();
-              }
-            },
+    return BlocProvider.value(
+      value: sl<MoviesBloc>()
+        ..add(GetPlayingNowMoviesEvent())
+        ..add(GetPopularMoviesEvent())
+        ..add(GetTopRatedMoviesEvent()),
+      child: RefreshIndicator.adaptive(
+          onRefresh: _refresh,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: BlocBuilder<MoviesBloc, MoviesStates>(
+              builder: (BuildContext context, MoviesStates state) {
+                var bloc = MoviesBloc.get(context);
+                if (bloc.topMovies.isNotEmpty ||
+                    bloc.nowPlayingMovies.isNotEmpty ||
+                    bloc.popMovies.isNotEmpty) {
+                  return Column(
+                    children: [
+                      const NowPlayingMoviesComponent(),
+                      TitleAndSeeMoreWidget(
+                        title: StringManager.popular,
+                        onTap:()=>onTapSeeMorePopular(context),
+                      ), // static
+                      const PopularMoviesComponent(), // rebuild
+                      TitleAndSeeMoreWidget(
+                        title: StringManager.topRated,
+                        onTap: ()=>onTapSeeMoreTopRated(context) ,
+                      ), // static
+                      const TopRatedMoviesComponent(), // rebuild// rebuild
+                      const VerticalSpace(
+                        pixels: 15,
+                      ),
+                    ],
+                  );
+                } else {
+                  return const LottieLoadingIndicator();
+                }
+              },
+            ),
           ),
         ),
-      );
+    );
   }
 
   Future<void>  _refresh() async {
